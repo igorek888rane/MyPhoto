@@ -5,7 +5,7 @@ import MyButton from "../UI/MyButton/MyButton";
 
 const Header:FC = () => {
     return (
-        <header className={`${styles.header} container`}>
+        <header className={styles.header}>
            <div className={styles.logo}>
                <img  src={logo} alt=""/>
                <span>INST</span>
