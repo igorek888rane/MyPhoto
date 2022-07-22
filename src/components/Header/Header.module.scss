@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ffda70 ;
+}
+
+.logo {
+  display: flex;
+  cursor: pointer;
+  img {
+    margin-right: -15px;
+    width: 100px;
+
+  }
+
+  span {
+
+    align-self: center;
+    color: #ffda70;
+  }
+
+}
+
+.button {
+  display: flex;
+
+  button {
+    margin-left: 5px;
+    align-self: center;
+  }
+}
