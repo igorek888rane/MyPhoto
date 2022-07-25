@@ -38,15 +38,20 @@ const Profile: FC = () => {
                 id: 6, title: 'Kit',
                 photoUrl: 'https://sun9-north.userapi.com/sun9-86/s/v1/ig2/VmPcpUq3fVkl6oT6hPVy7On06WLoMURGoEaW0Xzmmvx5ErRUm0XgK9A0NbdSgba9RsOBQUyEfp7TZkvGzknKORev.jpg?size=1620x2160&quality=95&type=album',
                 count: 0
-            }
+            },
+
         ])
     }, [])
     return (
         <>
             <ProfileHeader/>
-            <div className={styles.photo_cards}>
-                {photoCard.map(photo => <PhotoCard key={photo.id} photo={photo}/>)}
-            </div>
+            {photoCard.length
+                ? <div className={styles.photo_cards}>
+                    {photoCard.map(photo => <PhotoCard key={photo.id} photo={photo}/>)}
+                </div>
+                : <div className={styles.not_found_block}>
+                    <h1>Нет Публикаций</h1>
+                </div>}
         </>
     );
 };

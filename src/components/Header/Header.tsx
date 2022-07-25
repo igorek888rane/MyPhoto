@@ -1,24 +1,35 @@
 import React, {FC} from 'react';
-import logo from '../../assets/img/logo.png'
 import styles from './Header.module.scss'
 import MyButton from "../UI/MyButton/MyButton";
+import UserPopup from "./UserPopup";
 
 const Header: FC = () => {
-    const auth:boolean = true
+    const auth: boolean = true
     return (
         <header className={styles.header}>
-            <div className={styles.logo}>
-                <img src={logo} alt=""/>
-                <span>INST</span>
-            </div>
-            <div className={styles.button}>
-                {auth
-                    ? <MyButton>Log Out</MyButton>
-                    : (
-                        <>
+            <div className={`${styles.header_container} container`}>
+                <div className={styles.logo}>
+                    <svg viewBox="0 0 32 32">
+                        <path
+                            d="M12,23h5a1,1,0,0,0,1-1V19A5,5,0,0,0,18,9H12a1,1,0,0,0-1,1V22A1,1,0,0,0,12,23Zm1-12h5a3,3,0,0,1,0,6H17a1,1,0,0,0-1,1v3H13Z"/>
+                        <path
+                            d="M23.2,3H13.6a1,1,0,0,0,0,2h9.6A3.8,3.8,0,0,1,27,8.8V23.2A3.8,3.8,0,0,1,23.2,27H8.8A3.8,3.8,0,0,1,5,23.2V8.8A3.8,3.8,0,0,1,8.8,5a1,1,0,0,0,0-2A5.8,5.8,0,0,0,3,8.8V23.2A5.8,5.8,0,0,0,8.8,29H23.2A5.8,5.8,0,0,0,29,23.2V8.8A5.8,5.8,0,0,0,23.2,3Z"/>
+                    </svg>
+                    <span>MyPhoto</span>
+                </div>
+
+
+                {
+                    auth ?
+                            <UserPopup/>
+                        :
+                        <div className={styles.button}>
                             <MyButton>Login</MyButton>
-                            <MyButton>Login</MyButton>
-                        </>)}
+                            <MyButton>Register</MyButton>
+                        </div>
+
+                }
+
             </div>
         </header>
     );

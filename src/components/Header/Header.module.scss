@@ -1,25 +1,73 @@
 .header {
+  position: relative;
+  z-index: 9999;
+  padding: 5px 0;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3)
+
+}
+
+.header_container {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #ffda70;
+
 }
 
 .logo {
-  display: flex;
   cursor: pointer;
+  display: flex;
 
-  img {
-    margin-left: -15px;
-    margin-right: -15px;
-    width: 100px;
+  svg {
+    width: 70px;
 
+    path {
+      fill: #FFFF;
+
+    }
   }
 
-  span {
 
+  span {
     align-self: center;
-    color: #ffda70;
+    margin-left: 10px;
+    font-size: 20px;
+    color: #FFFF;
+  }
+
+}
+
+.user_popup {
+  display: flex;
+  position: relative;
+  cursor: pointer;
+}
+
+.avatar {
+  align-self: center;
+
+  img {
+    width: 60px;
+    border-radius: 50%;
+  }
+}
+
+.popup {
+  position: absolute;
+  top: 80px;
+  right: 5px;
+  padding: 15px 40px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  background-color: #262837;
+
+  ul {
+    list-style-type: none;
+
+    a {
+      text-decoration: none;
+    }
+
+    li {
+      color: #FFFF;
+    }
   }
 
 }

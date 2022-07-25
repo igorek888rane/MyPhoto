@@ -2,15 +2,19 @@
   margin: 0 auto;
   max-width: 1200px;
 }
+.content{
+
+  height: 100%
+}
 .footer{
   margin-top: 20px;
   padding: 20px;
-  border-top:2px solid #ffda70 ;
+  border-top: 1px solid #545454 ;
 span{
   font-size: 24px;
-  color:#ffda70;
+  color:#545454;
 }
 }
 h1,h2{
-  color: #ffda70;
+  color: #FFFF;
 }

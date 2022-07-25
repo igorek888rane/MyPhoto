@@ -3,7 +3,9 @@ import React, {FC} from 'react';
 const Footer:FC = () => {
     return (
         <div className={'footer'}>
-          <span>©Tsuker Corp</span>
+          <div className={'container'}>
+              <span>©Tsuker Corp</span>
+          </div>
         </div>
     );
 };
