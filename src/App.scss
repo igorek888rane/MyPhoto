@@ -1,20 +1,25 @@
+
+.content {
+  min-height: calc(100vh - 150px);
+}
+
 .container {
   margin: 0 auto;
   max-width: 1200px;
-}
-.content{
 
-  height: 100%
 }
-.footer{
-  margin-top: 20px;
+
+.footer {
+  height: 50px;
   padding: 20px;
-  border-top: 1px solid #545454 ;
-span{
-  font-size: 24px;
-  color:#545454;
+  border-top: 1px solid #545454;
+
+  span {
+    font-size: 24px;
+    color: #545454;
+  }
 }
-}
-h1,h2{
+
+h1, h2 {
   color: #FFFF;
 }

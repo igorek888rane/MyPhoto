@@ -2,11 +2,11 @@ import React, {FC} from 'react';
 
 const Footer:FC = () => {
     return (
-        <div className={'footer'}>
+        <footer className={'footer'}>
           <div className={'container'}>
-              <span>©Tsuker Corp</span>
+              <span>©Tsuker Corp 2022</span>
           </div>
-        </div>
+        </footer>
     );
 };
 

@@ -1,6 +1,7 @@
 export interface IPhotoCard {
     id: number | string,
-    title: string,
+    description: string,
     photoUrl: string,
     count: number,
+    comments:number,
 }
