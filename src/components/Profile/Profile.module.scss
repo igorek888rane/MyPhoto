@@ -92,21 +92,66 @@
 }
 
 .photo_card {
-  margin-top: 15px;
+  margin-top: 25px;
   max-width: 600px;
   cursor: pointer;
-  &:hover{
-    filter: brightness(40%)
+  position: relative;
+
+
+  .info_card {
+    display: none;
+    position: absolute;
+    padding-top:50%;
+    padding-left: 35%;
+
+
+    .likes {
+      display: flex;
+
+    }
+
+    .comments {
+      display: flex;
+    }
+
+    svg {
+      fill: #FFFF;
+      width: 25px;
+      margin-left: 20px;
+    }
+
+    span {
+      font-weight: bolder;
+      margin-left: 5px;
+      color: #FFFF;
+    }
+  }
+
+  &:hover {
+    .info_card {
+      display: flex;
+      z-index: 10000;
+    }
+    .photo{
+      filter: brightness(40%);
+    }
+
   }
 }
 
 .photo {
   margin: 0;
+  &:hover {
+    filter: brightness(40%);
+  }
+
+
 
   img {
     border-radius: 25px;
     width: 100%;
     height: 400px;
+
 
   }
 }
