@@ -1,0 +1,21 @@
+@import "src/styles/variables";
+
+.input {
+  margin:25px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: $white;
+  outline: 0;
+  border: 0;
+  border-bottom: 2px solid $white;
+  height: 25px;
+  background-color: transparent;
+  width: 100%;
+  &::placeholder {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    color: $white;
+  }
+
+}

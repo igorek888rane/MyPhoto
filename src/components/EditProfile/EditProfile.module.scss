@@ -1,0 +1,16 @@
+.edit__profile{
+  display: flex;
+  flex-direction: column;
+  button{
+    margin: 10px 0 ;
+  }
+  h1{
+    text-align: center;
+    @media (max-width: 576px) {
+      font-size: 24px;
+    }
+    @media (max-width: 413px) {
+      font-size: 19px;
+    }
+  }
+}

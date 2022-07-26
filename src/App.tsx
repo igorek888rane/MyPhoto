@@ -1,5 +1,5 @@
 import React from 'react';
-import {Routes,Route} from 'react-router-dom'
+import {Route, Routes} from 'react-router-dom'
 import './styles/App.scss';
 import Layout from "./components/Layout";
 import ProfilePage from "./pages/ProfilePage";
@@ -20,6 +20,7 @@ function App() {
                <Route path = '*' element={<HomePage/>}/>
            </Route>
         </Routes>
+
         </div>
     );
 }
