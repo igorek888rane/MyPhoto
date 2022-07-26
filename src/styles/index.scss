@@ -1,12 +1,15 @@
+@import './variables';
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
 
-  background-color: #262837;
+body {
+  background-color:$dark;
+  color:$white;
   font-family: 'Edu VIC WA NT Beginner', cursive;
 }
 

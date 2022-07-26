@@ -1,4 +1,4 @@
-
+@import "src/styles/variables";
 .header {
   display: flex;
   justify-content: space-between;
@@ -49,7 +49,7 @@
       cursor: pointer;
 
       path {
-        fill: #FFFF;
+        fill: $white;
       }
 
     }
@@ -102,7 +102,7 @@
     display: none;
     position: absolute;
     padding-top:50%;
-    padding-left: 35%;
+    padding-left: 33%;
 
 
     .likes {
@@ -115,7 +115,7 @@
     }
 
     svg {
-      fill: #FFFF;
+      fill: $white;
       width: 25px;
       margin-left: 20px;
     }
@@ -123,7 +123,7 @@
     span {
       font-weight: bolder;
       margin-left: 5px;
-      color: #FFFF;
+      color: $white;
     }
   }
 
@@ -154,6 +154,12 @@
 
 
   }
+}
+.photo_skeleton{
+  margin: 0;
+  //background-color: #545454;
+  //border-radius: 25px;
+  //height: 400px;
 }
 
 .not_found_block {
