@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import styles from './Profile.module.scss'
 import {IPhotoCard} from "../../@types/types";
 
-interface PhotoItemProps {
+type PhotoItemProps = {
     photo: IPhotoCard
 }
 

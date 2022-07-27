@@ -16,7 +16,6 @@ const MyModal: FC<PropsWithChildren> = ({children}) => {
                           c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z"/>
                     </svg>
                 </div>
-
                 {children}
             </div>
         </div>

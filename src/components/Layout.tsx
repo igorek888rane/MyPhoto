@@ -6,6 +6,7 @@ import MyModal from "./UI/MyModal/MyModal";
 import EditPhoto from "./EditPhoto/EditPhoto";
 
 
+
 const Layout: FC = () => {
     return (
         <>

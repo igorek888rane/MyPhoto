@@ -45,7 +45,6 @@ const Profile: FC = () => {
                     {isLoading?
                         [...new Array(3)].map((_,i)=><PhotoCardSkeleton key={i}/>)
                         :photoCard.map(photo => <PhotoCard key={photo.id} photo={photo}/>)}
-
                 </div>
                 : <div className={styles.not_found_block}>
                     <h1>Нет Публикаций</h1>
