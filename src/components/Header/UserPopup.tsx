@@ -1,21 +1,40 @@
-import React, {FC, useEffect, useRef, useState} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import {Link} from "react-router-dom";
 import styles from "./Header.module.scss";
+import {useSelector} from "react-redux";
+import {userSelector} from "../../redux/slices/userSlice";
+
+type BodyClick = MouseEvent & {
+    path: Node[]
+}
 
 const UserPopup: FC = () => {
     const [open, setOpen] = useState<boolean>(false)
     const popupRef = useRef<HTMLDivElement>(null)
-    useEffect((): any => {
-        document.body.onclick = (e: any) => {
-            if (!e.path.includes(popupRef.current)) setOpen(false)
+    const {userAvatar} = useSelector(userSelector)
+
+    document.body.onclick = (e: MouseEvent) => {
+        const _e = e as BodyClick
+        if (popupRef.current && !_e.path.includes(popupRef.current)) {
+            setOpen(false)
+            document.body.onclick = null
         }
-        return () => document.body.onclick = null
-    }, [])
+
+    }
+    document.onkeydown = (e: KeyboardEvent) => {
+        if (e.code === 'Escape') {
+            setOpen(false)
+            document.onkeydown = null
+        }
+
+    }
+
+
     return (
         <div ref={popupRef} onClick={() => setOpen(!open)} className={styles.user_popup}>
             <div className={styles.avatar}>
                 <img
-                    src="https://sun2.userapi.com/sun2-12/s/v1/ig2/EPTNS_1Xtu-2vqG10GGpqOP6-5zzC82cHWt8V_T3BVzOO8LuMCKm8RcwlXKfagZ4SqePpt449XOhTAqusyXd2eXW.jpg?size=200x200&quality=95&crop=13,258,1535,1535&ava=1"
+                    src={userAvatar || 'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png'}
                     alt=""/>
             </div>
             {open && <div className={styles.popup}>

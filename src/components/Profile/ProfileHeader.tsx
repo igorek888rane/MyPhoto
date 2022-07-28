@@ -1,23 +1,34 @@
 import React from 'react';
 import styles from './Profile.module.scss'
 import MyButton from "../UI/MyButton/MyButton";
+import {useAppDispatch} from "../../redux/store";
+import {setModal} from "../../redux/slices/modalSlice";
+import EditPhoto from "../EditPhoto/EditPhoto";
+import EditProfile from "../EditProfile/EditProfile";
+import {userSelector} from "../../redux/slices/userSlice";
+import {useSelector} from "react-redux";
 
 
 const ProfileHeader = () => {
+    const dispatch = useAppDispatch()
+
+    const {userName,userStatus,userAvatar} = useSelector(userSelector)
+
+
     return (
         <div className={styles.header}>
             <div className={styles.info_block}>
-                <div className={styles.avatar}>
+                <div className={styles.avatar} onClick={()=>dispatch(setModal({active:true,body:<EditPhoto/>}))}>
                     <img
-                        src="https://sun2.userapi.com/sun2-12/s/v1/ig2/EPTNS_1Xtu-2vqG10GGpqOP6-5zzC82cHWt8V_T3BVzOO8LuMCKm8RcwlXKfagZ4SqePpt449XOhTAqusyXd2eXW.jpg?size=200x200&quality=95&crop=13,258,1535,1535&ava=1"
+                        src={userAvatar||'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png'}
                         alt=""/>
                 </div>
                 <div className={styles.info}>
                     <div className={styles.name}>
-                        <h1>Tsuker26</h1>
-                        <h2>Student</h2>
+                        <h1>{userName}</h1>
+                        <h2>{userStatus}</h2>
                     </div>
-                    <div className={styles.edit}>
+                    <div className={styles.edit} onClick={()=>dispatch(setModal({active:true,body:<EditProfile/>}))}>
                         <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 14c0 2.206-1.794 4-4
                             4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v8z"/>
@@ -27,7 +38,7 @@ const ProfileHeader = () => {
                     </div>
                 </div>
             </div>
-            <div className={styles.btn}>
+            <div className={styles.btn} onClick={()=>dispatch(setModal({active:true,body:null}))}>
                 <MyButton>
                     <span>+</span>
                 </MyButton>

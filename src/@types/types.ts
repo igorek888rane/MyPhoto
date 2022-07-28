@@ -5,3 +5,10 @@ export interface IPhotoCard {
     likes: number,
     comments:number,
 }
+
+export interface IUser {
+    userName:string,
+    userStatus:string,
+    userAvatar:string,
+    photoCard:IPhotoCard[],
+}

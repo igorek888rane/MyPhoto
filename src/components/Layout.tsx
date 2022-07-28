@@ -3,15 +3,17 @@ import {Outlet} from "react-router-dom";
 import Header from "./Header/Header";
 import Footer from "./Footer";
 import MyModal from "./UI/MyModal/MyModal";
-import EditPhoto from "./EditPhoto/EditPhoto";
-
+import {useSelector} from "react-redux";
+import {modalSelector} from "../redux/slices/modalSlice";
 
 
 const Layout: FC = () => {
+
+    const {body} = useSelector(modalSelector)
     return (
         <>
             <MyModal>
-                <EditPhoto/>
+                {body}
             </MyModal>
             <Header/>
             <main className={'content'}>
