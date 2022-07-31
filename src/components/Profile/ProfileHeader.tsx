@@ -2,23 +2,20 @@ import React from 'react';
 import styles from './Profile.module.scss'
 import MyButton from "../UI/MyButton/MyButton";
 import {useAppDispatch} from "../../redux/store";
-import {setModal} from "../../redux/slices/modalSlice";
 import EditPhoto from "../EditPhoto/EditPhoto";
 import EditProfile from "../EditProfile/EditProfile";
 import {userSelector} from "../../redux/slices/userSlice";
 import {useSelector} from "react-redux";
+import {modalHandler} from "../../utils/modalHandler";
 
 
 const ProfileHeader = () => {
     const dispatch = useAppDispatch()
-
     const {userName,userStatus,userAvatar} = useSelector(userSelector)
-
-
     return (
         <div className={styles.header}>
             <div className={styles.info_block}>
-                <div className={styles.avatar} onClick={()=>dispatch(setModal({active:true,body:<EditPhoto/>}))}>
+                <div className={styles.avatar} onClick={()=>modalHandler({active:true,body:<EditPhoto/>},dispatch)}>
                     <img
                         src={userAvatar||'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png'}
                         alt=""/>
@@ -28,7 +25,7 @@ const ProfileHeader = () => {
                         <h1>{userName}</h1>
                         <h2>{userStatus}</h2>
                     </div>
-                    <div className={styles.edit} onClick={()=>dispatch(setModal({active:true,body:<EditProfile/>}))}>
+                    <div className={styles.edit} onClick={()=>modalHandler({active:true,body:<EditProfile/>},dispatch)}>
                         <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm4 14c0 2.206-1.794 4-4
                             4H4V8c0-2.206 1.794-4 4-4h8c2.206 0 4 1.794 4 4v8z"/>
@@ -38,7 +35,7 @@ const ProfileHeader = () => {
                     </div>
                 </div>
             </div>
-            <div className={styles.btn} onClick={()=>dispatch(setModal({active:true,body:null}))}>
+            <div className={styles.btn} onClick={()=>modalHandler({active:true,body:null},dispatch)}>
                 <MyButton>
                     <span>+</span>
                 </MyButton>

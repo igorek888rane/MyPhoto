@@ -3,6 +3,9 @@ import {IPhotoCard, IUser} from "../../@types/types";
 import {RootState} from "../store";
 
 const initialState:IUser = {
+    id:'',
+    email:'',
+    token:'',
     userName:'Tsuker26',
     userStatus:'Student',
     userAvatar:'',
@@ -23,6 +26,6 @@ export const userSlice = createSlice({
 
 export  const userSelector =(state: RootState) => state.user
 
- export const {setPhotoCard} = userSlice.actions
+export const {setPhotoCard} = userSlice.actions
 
 export default userSlice.reducer

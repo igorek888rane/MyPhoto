@@ -1,8 +1,9 @@
 import React, {FC, PropsWithChildren} from 'react';
 import styles from './MyModal.module.scss'
 import {useSelector} from "react-redux";
-import {modalSelector, setModal} from "../../../redux/slices/modalSlice";
+import {modalSelector} from "../../../redux/slices/modalSlice";
 import {useAppDispatch} from "../../../redux/store";
+import {modalHandler} from "../../../utils/modalHandler";
 
 
 const MyModal: FC<PropsWithChildren> = ({children}) => {
@@ -10,15 +11,11 @@ const MyModal: FC<PropsWithChildren> = ({children}) => {
     const dispatch = useAppDispatch()
     const {active} = useSelector(modalSelector)
 
-    const CloseModal = () =>{
-        dispatch(setModal({active:false,body:null}))
-    }
-
     return (
-        <div className={active ? `${styles.modal} ${styles.active}` : styles.modal} onClick={CloseModal}>
+        <div className={active ? `${styles.modal} ${styles.active}` : styles.modal} onClick={()=>modalHandler({active:false,body:null},dispatch)}>
             <div className={active ? `${styles.modal__content} ${styles.active}` : styles.modal__content}
                  onClick={(event: React.MouseEvent<HTMLDivElement>) => event.stopPropagation()}>
-                <div className={styles.close} onClick={CloseModal}>
+                <div className={styles.close} onClick={()=>modalHandler({active:false,body:null},dispatch)}>
                     <svg height="512px" id="Layer_1" version="1.1"
                          viewBox="0 0 512 512" width="512px" xmlns="http://www.w3.org/2000/svg">
                         <path d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5
