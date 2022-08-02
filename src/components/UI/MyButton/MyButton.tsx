@@ -1,9 +1,14 @@
 import React, {FC, PropsWithChildren} from 'react';
 import styles from "./MyButton.module.scss";
 
-const MyButton:FC<PropsWithChildren>= ({children}) => {
+
+interface ButtonProps {
+    type?:'submit';
+}
+
+const MyButton:FC<PropsWithChildren<ButtonProps>> = ({type,children}) => {
     return (
-        <button className={styles.btn}>
+        <button type={type} className={styles.btn}>
             {children}
         </button>
     );

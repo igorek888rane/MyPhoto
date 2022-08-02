@@ -11,19 +11,19 @@ import {modalHandler} from "../../utils/modalHandler";
 
 const ProfileHeader = () => {
     const dispatch = useAppDispatch()
-    const {userName,userStatus,userAvatar} = useSelector(userSelector)
+    const {data} = useSelector(userSelector)
     return (
         <div className={styles.header}>
             <div className={styles.info_block}>
                 <div className={styles.avatar} onClick={()=>modalHandler({active:true,body:<EditPhoto/>},dispatch)}>
                     <img
-                        src={userAvatar||'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png'}
+                        src={data?.userAvatar||'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png'}
                         alt=""/>
                 </div>
                 <div className={styles.info}>
                     <div className={styles.name}>
-                        <h1>{userName}</h1>
-                        <h2>{userStatus}</h2>
+                        <h1>{data?.userName}</h1>
+                        <h2>{data?.userStatus}</h2>
                     </div>
                     <div className={styles.edit} onClick={()=>modalHandler({active:true,body:<EditProfile/>},dispatch)}>
                         <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">

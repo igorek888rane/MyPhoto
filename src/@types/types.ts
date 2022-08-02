@@ -3,15 +3,22 @@ export interface IPhotoCard {
     description: string,
     photoUrl: string,
     likes: number,
-    comments:number,
+    comments:[],
 }
 
 export interface IUser {
-    id: string,
+    _id: string,
     email:string,
     userName:string,
     token:string
     userStatus:string,
     userAvatar:string,
-    photoCard:IPhotoCard[],
+    photoCards:IPhotoCard[]
+}
+
+export interface FormValues {
+    email?: string;
+    userName: string;
+    password: string;
+    confirmPassword?: string;
 }

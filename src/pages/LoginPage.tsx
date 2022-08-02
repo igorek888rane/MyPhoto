@@ -1,11 +1,12 @@
 import React from 'react';
+import Login from "../components/FormAuth/Login";
 
-const LoginP = () => {
+const LoginPage = () => {
     return (
-        <div>
-            
+        <div className={'container'}>
+           <Login/>
         </div>
     );
 };
 
-export default LoginP;
+export default LoginPage;

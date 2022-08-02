@@ -33,7 +33,7 @@ const PhotoCard: FC<PhotoItemProps> = ({photo}) => {
                         </svg>
                     </div>
                     <div>
-                        <span>{photo.comments}</span>
+                        <span>{photo.comments.length}</span>
                     </div>
                 </div>
             </div>

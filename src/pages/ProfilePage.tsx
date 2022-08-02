@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import Profile from "../components/Profile/Profile";
 
-const ProfileP :FC = () => {
+const ProfilePage :FC = () => {
     return (
         <div className='container'>
             <Profile/>
@@ -9,4 +9,4 @@ const ProfileP :FC = () => {
     );
 };
 
-export default ProfileP;
+export default ProfilePage;

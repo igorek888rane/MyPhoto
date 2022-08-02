@@ -81,8 +81,9 @@
 .button {
   display: flex;
 
-  button {
-    margin: 0 10px;
+  a {
     align-self: center;
+    margin: 0 10px;
   }
+
 }

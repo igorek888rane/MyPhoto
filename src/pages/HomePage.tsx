@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 
-const HomeP:FC = () => {
+const HomeP: FC = () => {
+
     return (
         <div className={'container'}>
             <div>

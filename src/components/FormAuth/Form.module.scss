@@ -1,0 +1,39 @@
+.form_block {
+  margin: 100px auto;
+  padding: 50px;
+  width: 50%;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+
+  h1 {
+    text-align: center;
+  }
+
+  .btn_submit {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 992px) {
+    width: 70%;
+  }
+  @media (max-width: 767px) {
+    width: 80%;
+  }
+  @media (max-width: 576px) {
+    width: 100%;
+  }
+  @media (max-width: 413px) {
+    width: 413px
+  }
+}
+
+.form {
+  position: relative;
+}
+
+.error {
+  color: red;
+  position: absolute;
+
+
+}
