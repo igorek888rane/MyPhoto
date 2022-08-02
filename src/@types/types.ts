@@ -1,9 +1,12 @@
 export interface IPhotoCard {
-    id: string | number,
+    user:string,
+    _id: string | number,
     description: string,
     photoUrl: string,
     likes: number,
     comments:[],
+    createdAt:string,
+    updatedAt:string,
 }
 
 export interface IUser {
@@ -13,7 +16,6 @@ export interface IUser {
     token:string
     userStatus:string,
     userAvatar:string,
-    photoCards:IPhotoCard[]
 }
 
 export interface FormValues {

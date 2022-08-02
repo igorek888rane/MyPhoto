@@ -38,7 +38,7 @@ const PhotoCard: FC<PhotoItemProps> = ({photo}) => {
                 </div>
             </div>
             <div className={styles.photo}>
-                <img src={photo.photoUrl} alt=""/>
+                <img src={`${process.env.REACT_APP_SERVER_API}/uploads/PhotoCard/${photo.photoUrl}`} alt=""/>
             </div>
         </div>
     );

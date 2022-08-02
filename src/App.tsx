@@ -10,20 +10,20 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import WelcomePage from "./pages/WelcomePage";
 import {useSelector} from "react-redux";
-import {authSelector} from "./redux/slices/userSlice";
+import {isAuth} from "./redux/slices/authSlice";
 
 
 function App() {
 
-    const auth = useSelector(authSelector)
+    const auth = useSelector(isAuth)
 
     return (
         <div className="App">
             {auth? <Routes>
                 <Route path='/' element={<Layout/>}>
                     <Route path = '' element={<HomePage/>}/>
-                    <Route path = '/profile' element={<ProfilePage/>}/>
-                    <Route path = '/profile/:id' element={<PhotoCardPage/>}/>
+                    <Route path = '/profile/:userName' element={<ProfilePage/>}/>
+                    <Route path = '/profile/:userName/:id' element={<PhotoCardPage/>}/>
                     <Route path = '/setting' element={<SettingPage/>}/>
                     <Route path = '*' element={<HomePage/>}/>
                 </Route>

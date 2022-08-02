@@ -2,7 +2,7 @@ import React, {FC, useRef, useState} from 'react';
 import {Link} from "react-router-dom";
 import styles from "./Header.module.scss";
 import {useSelector} from "react-redux";
-import {logout, userSelector} from "../../redux/slices/userSlice";
+import {logout, authSelector} from "../../redux/slices/authSlice";
 import {useAppDispatch} from "../../redux/store";
 
 type BodyClick = MouseEvent & {
@@ -12,7 +12,7 @@ type BodyClick = MouseEvent & {
 const UserPopup: FC = () => {
     const [open, setOpen] = useState<boolean>(false)
     const popupRef = useRef<HTMLDivElement>(null)
-    const {data} = useSelector(userSelector)
+    const {data} = useSelector(authSelector)
     const dispatch = useAppDispatch()
     document.body.onclick = (e: MouseEvent) => {
         const _e = e as BodyClick
@@ -38,12 +38,14 @@ const UserPopup: FC = () => {
         <div ref={popupRef} onClick={() => setOpen(!open)} className={styles.user_popup}>
             <div className={styles.avatar}>
                 <img
-                    src={data?.userAvatar || 'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png'}
+                    src={data?.userAvatar?
+                        `${process.env.REACT_APP_SERVER_API}/uploads/userAvatar/${data?.userAvatar}`
+                        :'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png'}
                     alt=""/>
             </div>
             {open && <div className={styles.popup}>
                 <ul>
-                    <Link to={'/profile'}>
+                    <Link to={`/profile/${data?.userName}`}>
                         <li>Профиль</li>
                     </Link>
                     <Link to={'/setting'}>

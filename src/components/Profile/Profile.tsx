@@ -1,30 +1,42 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect} from 'react';
 import styles from './Profile.module.scss'
 import ProfileHeader from "./ProfileHeader";
 import PhotoCard from "./PhotoCard";
 import PhotoCardSkeleton from "./PhotoCardSkeleton";
 import {useSelector} from "react-redux";
-import {userSelector} from "../../redux/slices/userSlice";
 import {useAppDispatch} from "../../redux/store";
+import {fetchPhotoCards, photoSelector} from "../../redux/slices/photoCardsSlice";
+import {fetchUser, userSelector} from "../../redux/slices/userSlice";
+import {useParams} from "react-router-dom";
+import {authSelector} from "../../redux/slices/authSlice";
 
 
 const Profile: FC = () => {
 
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-    const {data} = useSelector(userSelector)
+
+    const {user} = useSelector(userSelector)
+    const {data} = useSelector(authSelector)
+    const {status, photoCards} = useSelector(photoSelector)
     const dispatch = useAppDispatch()
+    const params = useParams()
+
     useEffect(() => {
+        const userName = String(params.userName)
+        dispatch(fetchUser(userName))
+    }, [data])
+    useEffect(()=>{
+        const userId = String(user?._id)
+        dispatch(fetchPhotoCards(userId))
+    },[user,data])
 
-
-    }, [dispatch])
     return (
         <>
             <ProfileHeader/>
-            {data?.photoCards.length
+            {photoCards.length
                 ? <div className={styles.photo_cards}>
-                    {isLoading ?
+                    {status === 'loading' ?
                         [...new Array(3)].map((_, i) => <PhotoCardSkeleton key={i}/>)
-                        : data?.photoCards.map(photo => <PhotoCard key={photo.id} photo={photo}/>)}
+                        : photoCards.map(photo => <PhotoCard key={photo._id} photo={photo}/>)}
                 </div>
                 : <div className={styles.not_found_block}>
                     <h1>Нет Публикаций</h1>

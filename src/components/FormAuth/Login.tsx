@@ -4,13 +4,16 @@ import styles from "./Form.module.scss";
 import {Formik, FormikErrors} from "formik";
 import MyInput from "../UI/MyInput/MyInput";
 import MyButton from "../UI/MyButton/MyButton";
-import {authUser} from "../../redux/slices/userSlice";
-import {useAppDispatch} from "../../redux/store";
+import {authUser} from "../../redux/slices/authSlice";
+import {RootState, useAppDispatch} from "../../redux/store";
+import {useSelector} from "react-redux";
 
 
 const Login:FC = () => {
     const initialValues: FormValues = {userName: 'user1', password: '123123978aA'}
     const dispatch = useAppDispatch()
+    const status = useSelector((state:RootState )=> state.auth.status)
+    console.log(status)
     return (
         <div className={styles.form_block}>
             <h1>Вход</h1>
@@ -47,6 +50,7 @@ const Login:FC = () => {
 
                   }) => (
                     <form className={styles.form} onSubmit={handleSubmit}>
+
                         {errors.userName && touched.userName &&  <div className={styles.error}>{errors.userName}</div>}
                         <MyInput
                             placeholder={'Введите имя пользователя...'}
@@ -63,9 +67,11 @@ const Login:FC = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.password}/>
+
                         <div className={styles.btn_submit}>
                             <MyButton type={'submit'}>Войти</MyButton>
                         </div>
+                        {status==='error'&&<div className={styles.error}>Неверный логин или пароль</div>}
                     </form>
                 )}
             </Formik>
