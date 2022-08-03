@@ -4,10 +4,10 @@ import MyButton from "../UI/MyButton/MyButton";
 import UserPopup from "./UserPopup";
 import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {authSelector} from "../../redux/slices/userSlice";
+import {isAuth} from "../../redux/slices/authSlice";
 
 const Header: FC = () => {
-    const auth = useSelector(authSelector)
+    const auth = useSelector(isAuth)
     return (
         <header className={styles.header}>
             <div className={`${styles.header_container} container`}>

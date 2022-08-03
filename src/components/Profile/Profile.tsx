@@ -27,6 +27,7 @@ const Profile: FC = () => {
     useEffect(()=>{
         const userId = String(user?._id)
         dispatch(fetchPhotoCards(userId))
+
     },[user,data])
 
     return (

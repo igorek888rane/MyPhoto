@@ -4,11 +4,12 @@ import styles from "./MyButton.module.scss";
 
 interface ButtonProps {
     type?:'submit';
+    onClick?:()=>void
 }
 
-const MyButton:FC<PropsWithChildren<ButtonProps>> = ({type,children}) => {
+const MyButton:FC<PropsWithChildren<ButtonProps>> = ({type,onClick,children}) => {
     return (
-        <button type={type} className={styles.btn}>
+        <button onClick={onClick} type={type} className={styles.btn}>
             {children}
         </button>
     );

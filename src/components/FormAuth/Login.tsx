@@ -10,7 +10,7 @@ import {useSelector} from "react-redux";
 
 
 const Login:FC = () => {
-    const initialValues: FormValues = {userName: 'user1', password: '123123978aA'}
+    const initialValues: FormValues = {userName: '', password: '123123978aA'}
     const dispatch = useAppDispatch()
     const status = useSelector((state:RootState )=> state.auth.status)
     console.log(status)

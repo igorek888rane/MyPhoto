@@ -5,11 +5,11 @@ import MyInput from "../UI/MyInput/MyInput";
 import MyButton from "../UI/MyButton/MyButton";
 import {FormValues} from "../../@types/types";
 import {useAppDispatch} from "../../redux/store";
-import {authUser} from "../../redux/slices/userSlice";
+import {authUser} from "../../redux/slices/authSlice";
 
 
 const RegisterForm: FC = () => {
-    const initialValues: FormValues = {email: 'user1@gmail.com', userName: 'user1', password: '123123978aA', confirmPassword: '123123978aA'}
+    const initialValues: FormValues = {email: '', userName: '', password: '123123978aA', confirmPassword: '123123978aA'}
     const dispatch = useAppDispatch()
 
     return (

@@ -29,9 +29,17 @@
   display: flex;
   margin-left: 40px;
 
+  .error {
+    position: absolute;
+    color: red;
+  }
+
   .name {
     align-self: center;
     margin-left: -20px;
+
+
+
 
     h1, h2 {
       @media (max-width: 576px) {

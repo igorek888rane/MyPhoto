@@ -4,6 +4,7 @@ import styles from "./Header.module.scss";
 import {useSelector} from "react-redux";
 import {logout, authSelector} from "../../redux/slices/authSlice";
 import {useAppDispatch} from "../../redux/store";
+import {fetchUser} from "../../redux/slices/userSlice";
 
 type BodyClick = MouseEvent & {
     path: Node[]
@@ -46,7 +47,7 @@ const UserPopup: FC = () => {
             {open && <div className={styles.popup}>
                 <ul>
                     <Link to={`/profile/${data?.userName}`}>
-                        <li>Профиль</li>
+                        <li onClick={()=>{ dispatch(fetchUser(data?.userName))}}>Профиль</li>
                     </Link>
                     <Link to={'/setting'}>
                         <li>Настройки</li>

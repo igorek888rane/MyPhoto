@@ -13,7 +13,7 @@ import {authSelector} from "../../redux/slices/authSlice";
 const ProfileHeader = () => {
     const dispatch = useAppDispatch()
     const {user} = useSelector(userSelector)
-    const {data} = useSelector(authSelector)
+    const {data,statusUpdate} = useSelector(authSelector)
     return (
         <div className={styles.header}>
             <div className={styles.info_block}>
@@ -26,7 +26,9 @@ const ProfileHeader = () => {
                         alt=""/>
                 </div>
                 <div className={styles.info}>
+                    {statusUpdate === 'error' && <div className={styles.error}>Имя пользователя занято</div>}
                     <div className={styles.name}>
+
                         <h1>{user?.userName}</h1>
                         <h2>{user?.userStatus}</h2>
                     </div>
