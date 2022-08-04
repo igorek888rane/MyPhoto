@@ -1,9 +1,12 @@
 import React from 'react';
+import PhotoCardItem from "../components/PhotoCardItem/PhotoCardItem";
 
 const PhotoCardPage = () => {
+
+
     return (
-        <div>
-            
+        <div className={'container'}>
+            <PhotoCardItem/>
         </div>
     );
 };

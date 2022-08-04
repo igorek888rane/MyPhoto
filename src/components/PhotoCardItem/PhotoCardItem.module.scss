@@ -1,0 +1,198 @@
+@import "src/styles/variables";
+
+.photoCard {
+  display: grid;
+  grid-template-areas:
+          "P   A A   B "
+          "P   A A   C ";
+
+
+  grid-template-rows: 110px auto;
+  gap: 15px;
+
+  margin-top: 15px;
+  @media (max-width: 992px) {
+    grid-template-areas:
+            "B "
+            "A "
+            "C";
+  }
+}
+
+.header {
+  display: grid;
+  grid-area: B;
+  grid-template-columns: 85px auto 35px;
+  padding: 15px;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+
+
+  .avatar {
+    img {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .time {
+      font-size: 15px;
+    }
+  }
+
+
+}
+
+.options {
+  cursor: pointer;
+  position: relative;
+  top: -20px;
+
+  svg {
+    width: 35px;
+
+    path {
+      fill: $white;
+    }
+  }
+}
+
+.photo {
+  grid-area: A;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+
+
+  img {
+    width: 100%;
+    height: 80vh;
+    object-fit: scale-down;
+  }
+}
+
+.description {
+  grid-area: C;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+  display: grid;
+  grid-template-rows: 90% 5% 5%;
+
+  @media (max-width: 992px) {
+    grid-template-rows: 65% 15% 20%;
+  }
+
+  span {
+    color: $white;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .like {
+    cursor: pointer;
+
+    svg {
+
+      path {
+        fill: $white
+      }
+    }
+  }
+
+  .block_bottom {
+
+
+    .text {
+      display: grid;
+      grid-template-columns: 95% 5%;
+      border-top: 1px solid $white;
+
+      .send {
+
+        svg {
+          margin-top: 5px;
+          cursor: pointer;
+
+          path {
+            fill: $white;
+          }
+        }
+      }
+
+      textarea {
+        width: 100%;
+        height: 100%;
+        resize: none;
+        outline: none;
+        background-color: transparent;
+        color: $white;
+        font-size: 20px;
+        border: none;
+        overflow: hidden;
+      }
+
+    }
+
+
+  }
+}
+
+.popup {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  padding: 5px 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  background-color: $dark;
+
+  ul {
+    list-style-type: none;
+
+    a {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 17px;
+      color: $white;
+    }
+  }
+
+}
+
+.comment_block {
+  display: flex;
+  align-items: center;
+
+  .comment_avatar {
+    cursor: pointer;
+    align-self: start;
+
+    img {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+    }
+  }
+
+  .comment_text {
+    margin-top: 5px;
+    margin-left: 10px;
+    align-self: start;
+
+    p {
+      //max-width: 400px;
+    }
+
+    span {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+}

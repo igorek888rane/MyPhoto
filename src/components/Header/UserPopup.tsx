@@ -33,6 +33,7 @@ const UserPopup: FC = () => {
 
 
     const exit = () => {
+        window.confirm('Вы дейстительно хотите выйти?')
         dispatch(logout())
     }
     return (

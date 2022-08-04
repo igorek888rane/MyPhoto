@@ -7,6 +7,7 @@ import axios from "../../utils/axios";
 
 interface photoCardState {
     photoCards: IPhotoCard[],
+    photoCard: IPhotoCard | null,
     status: string | null,
     statusCreate: string | null,
 }
@@ -14,6 +15,7 @@ interface photoCardState {
 
 const initialState: photoCardState = {
     photoCards: [],
+    photoCard: null,
     status: null,
     statusCreate: null,
 }
@@ -24,19 +26,27 @@ export const fetchPhotoCards = createAsyncThunk<IPhotoCard[], string>('photoCard
     return data
 })
 
-type dataType ={
-    photoCard:IPhotoCard,
-    success:boolean,
-    message:string
+type dataType = {
+    photoCard: IPhotoCard,
+    success: boolean,
+    message: string
 }
 
 export const createPhotoCard = createAsyncThunk<dataType, FormData>('photoCard/createPhotoCard', async (params) => {
 
-    const {data} = await axios.post(`/photo/create-photo`,params,{
-        headers:{
-            'Content-type':'multipart/form-data'
+    const {data} = await axios.post(`/photo/create-photo`, params, {
+        headers: {
+            'Content-type': 'multipart/form-data'
         }
     })
+    return data
+})
+export const fetchOnePhotoCard = createAsyncThunk<IPhotoCard, string>('photoCard/fetchOnePhotoCard', async (id) => {
+    const {data} = await axios.get(`/photo/get-one/${id}`)
+    return data
+})
+export const deletePhoto = createAsyncThunk<IPhotoCard, string>('photoCard/deletePhoto', async (id) => {
+    const {data} = await axios.delete(`/photo/delete/${id}`)
     return data
 })
 
@@ -49,7 +59,7 @@ export const photoCardSlice = createSlice({
         builder.addCase(fetchPhotoCards.pending, (state) => {
             state.status = Status.loading
         })
-        builder.addCase(fetchPhotoCards.fulfilled, (state:photoCardState, action) => {
+        builder.addCase(fetchPhotoCards.fulfilled, (state: photoCardState, action) => {
             state.photoCards = action.payload
             state.status = Status.success
         })
@@ -60,14 +70,35 @@ export const photoCardSlice = createSlice({
         builder.addCase(createPhotoCard.pending, (state) => {
             state.statusCreate = Status.loading
         })
-        builder.addCase(createPhotoCard.fulfilled, (state:photoCardState, action) => {
+        builder.addCase(createPhotoCard.fulfilled, (state: photoCardState, action) => {
             state.photoCards.push(action.payload?.photoCard)
             state.statusCreate = Status.success
         })
-        builder.addCase(createPhotoCard.rejected, (state:photoCardState) => {
+        builder.addCase(createPhotoCard.rejected, (state: photoCardState) => {
             state.statusCreate = Status.error;
-            // state.photoCards = []
         })
+        builder.addCase(fetchOnePhotoCard.pending, (state) => {
+            state.statusCreate = Status.loading
+        })
+        builder.addCase(fetchOnePhotoCard.fulfilled, (state: photoCardState, action) => {
+            state.photoCard = action.payload
+            state.statusCreate = Status.success
+        })
+        builder.addCase(fetchOnePhotoCard.rejected, (state: photoCardState) => {
+            state.statusCreate = Status.error;
+        })
+        builder.addCase(deletePhoto.pending, (state) => {
+            state.statusCreate = Status.loading
+        })
+        builder.addCase(deletePhoto.fulfilled, (state: photoCardState, action) => {
+            state.photoCards = state.photoCards.filter(photo=>photo._id !==action.payload._id)
+            state.photoCard = null
+            state.statusCreate = Status.success
+        })
+        builder.addCase(deletePhoto.rejected, (state: photoCardState) => {
+            state.statusCreate = Status.error;
+        })
+
 
     }
 })

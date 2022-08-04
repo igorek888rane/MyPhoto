@@ -19,7 +19,8 @@ const ProfileHeader = () => {
         <div className={styles.header}>
             <div className={styles.info_block}>
                 <div className={styles.avatar}
-                     onClick={() => modalHandler({active: true, body: <EditAvatar/>}, dispatch)}>
+                     onClick={() =>data?._id === user?._id && modalHandler({active: true, body: <EditAvatar/>}, dispatch)}>
+
                     <img
                         src={user?.userAvatar ?
                             `${process.env.REACT_APP_SERVER_API}/uploads/userAvatar/${user?.userAvatar}`
