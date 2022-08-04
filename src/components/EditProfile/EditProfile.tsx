@@ -24,26 +24,24 @@ const EditProfile: FC = () => {
     const editUser = async () => {
 
         const userId = String(data?._id)
-        const params = {
-            userName: input.name,
-            userStatus: input.status,
-        }
-         dispatch(updateUserInfo({id: userId, params}))
 
+        if (input.name === data.userName) {
+            const params = {userStatus: input.status,}
+            dispatch(updateUserInfo({id: userId, params}))
+
+        } else {
+            const params = {userName: input.name, userStatus: input.status,}
+            dispatch(updateUserInfo({id: userId, params}))
+        }
         navigate(`/profile/${input.name}`)
         modalHandler({active: false, body: null}, dispatch)
     }
 
 
-    // if(statusUpdate === 'success'){
-    //     navigate(`/profile/${input.name}`)
-    //     modalHandler({active: false, body: null}, dispatch)
-    // }
     return (
         <div className={styles.edit__profile}>
             <h1>Редактировать профиль</h1>
             <div className={styles.input}>
-
                 <MyInput type={'text'}
                          placeholder={'Введите имя пользователя...'}
                          value={input.name}
@@ -61,6 +59,7 @@ const EditProfile: FC = () => {
             </div>
             {statusUpdate === 'loading' ? <span>Загрузка...</span> :
                 <MyButton onClick={editUser}>Редактировать </MyButton>}
+
         </div>
     );
 };

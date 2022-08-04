@@ -7,18 +7,36 @@ import axios from "../../utils/axios";
 
 interface photoCardState {
     photoCards: IPhotoCard[],
-    status: string | null
+    status: string | null,
+    statusCreate: string | null,
 }
 
 
 const initialState: photoCardState = {
     photoCards: [],
     status: null,
+    statusCreate: null,
 }
 
 
-export const fetchPhotoCards = createAsyncThunk<IPhotoCard[], string>('user/photoCards', async (id) => {
+export const fetchPhotoCards = createAsyncThunk<IPhotoCard[], string>('photoCard/photoCards', async (id) => {
     const {data} = await axios.get(`/photo/get-photo-user/${id}`)
+    return data
+})
+
+type dataType ={
+    photoCard:IPhotoCard,
+    success:boolean,
+    message:string
+}
+
+export const createPhotoCard = createAsyncThunk<dataType, FormData>('photoCard/createPhotoCard', async (params) => {
+
+    const {data} = await axios.post(`/photo/create-photo`,params,{
+        headers:{
+            'Content-type':'multipart/form-data'
+        }
+    })
     return data
 })
 
@@ -38,6 +56,17 @@ export const photoCardSlice = createSlice({
         builder.addCase(fetchPhotoCards.rejected, (state) => {
             state.status = Status.error;
             state.photoCards = []
+        })
+        builder.addCase(createPhotoCard.pending, (state) => {
+            state.statusCreate = Status.loading
+        })
+        builder.addCase(createPhotoCard.fulfilled, (state:photoCardState, action) => {
+            state.photoCards.push(action.payload?.photoCard)
+            state.statusCreate = Status.success
+        })
+        builder.addCase(createPhotoCard.rejected, (state:photoCardState) => {
+            state.statusCreate = Status.error;
+            // state.photoCards = []
         })
 
     }

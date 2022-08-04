@@ -5,6 +5,7 @@ import styles from "./MyButton.module.scss";
 interface ButtonProps {
     type?:'submit';
     onClick?:()=>void
+    onSubmit?:()=>void
 }
 
 const MyButton:FC<PropsWithChildren<ButtonProps>> = ({type,onClick,children}) => {

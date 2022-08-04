@@ -1,12 +1,12 @@
 import React, {FC, useRef} from 'react';
-import styles from './EditPhoto.module.scss';
+import styles from './EditAvatar.module.scss';
 import {useAppDispatch} from "../../redux/store";
 import {authSelector, updateAvatar} from "../../redux/slices/authSlice";
 import {useSelector} from "react-redux";
 import {modalHandler} from "../../utils/modalHandler";
 
 
-const EditPhoto: FC = () => {
+const EditAvatar: FC = () => {
     const inputRef = useRef<HTMLInputElement>(null)
     const dispatch = useAppDispatch()
 
@@ -46,4 +46,4 @@ const EditPhoto: FC = () => {
     );
 };
 
-export default EditPhoto;
+export default EditAvatar;

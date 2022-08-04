@@ -88,8 +88,7 @@ export const authSlice = createSlice({
             window.localStorage.removeItem('token')
             state.data = {_id: '', email: '', userName: '', token: '', userStatus: '', userAvatar: '',}
             state.status = null
-        },
-
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(authUser.pending, (state) => {

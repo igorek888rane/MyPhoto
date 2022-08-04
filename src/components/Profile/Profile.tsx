@@ -23,12 +23,12 @@ const Profile: FC = () => {
     useEffect(() => {
         const userName = String(params.userName)
         dispatch(fetchUser(userName))
-    }, [data])
-    useEffect(()=>{
+    }, [data,dispatch,params])
+    useEffect(() => {
         const userId = String(user?._id)
         dispatch(fetchPhotoCards(userId))
 
-    },[user,data])
+    }, [user, data,dispatch])
 
     return (
         <>

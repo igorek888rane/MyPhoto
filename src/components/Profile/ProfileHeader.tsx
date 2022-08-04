@@ -2,12 +2,13 @@ import React from 'react';
 import styles from './Profile.module.scss'
 import MyButton from "../UI/MyButton/MyButton";
 import {useAppDispatch} from "../../redux/store";
-import EditPhoto from "../EditPhoto/EditPhoto";
+import EditAvatar from "../EditAvatar/EditAvatar";
 import EditProfile from "../EditProfile/EditProfile";
 import {useSelector} from "react-redux";
 import {modalHandler} from "../../utils/modalHandler";
 import {userSelector} from "../../redux/slices/userSlice";
 import {authSelector} from "../../redux/slices/authSlice";
+import AddPhoto from "../AddPhoto/AddPhoto";
 
 
 const ProfileHeader = () => {
@@ -18,7 +19,7 @@ const ProfileHeader = () => {
         <div className={styles.header}>
             <div className={styles.info_block}>
                 <div className={styles.avatar}
-                     onClick={() => modalHandler({active: true, body: <EditPhoto/>}, dispatch)}>
+                     onClick={() => modalHandler({active: true, body: <EditAvatar/>}, dispatch)}>
                     <img
                         src={user?.userAvatar ?
                             `${process.env.REACT_APP_SERVER_API}/uploads/userAvatar/${user?.userAvatar}`
@@ -47,7 +48,7 @@ const ProfileHeader = () => {
                 </div>
             </div>
             {data?._id === user?._id &&
-                <div className={styles.btn} onClick={() => modalHandler({active: true, body: null}, dispatch)}>
+                <div className={styles.btn} onClick={() => modalHandler({active: true, body: <AddPhoto/>}, dispatch)}>
                     <MyButton>
                         <span>+</span>
                     </MyButton>
