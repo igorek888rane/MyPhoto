@@ -2,16 +2,16 @@
 
 .photoCard {
   display: grid;
+  grid-template-columns: 70% 30%;
   grid-template-areas:
-          "P   A A   B "
-          "P   A A   C ";
+          " A   B "
+          " A   C ";
 
 
-  grid-template-rows: 110px auto;
   gap: 15px;
-
   margin-top: 15px;
   @media (max-width: 992px) {
+    grid-template-columns: 100%;
     grid-template-areas:
             "B "
             "A "
@@ -24,7 +24,7 @@
   grid-area: B;
   grid-template-columns: 85px auto 35px;
   padding: 15px;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: $shadow;
 
 
   .avatar {
@@ -68,7 +68,7 @@
 
 .photo {
   grid-area: A;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: $shadow;
 
 
   img {
@@ -80,13 +80,11 @@
 
 .description {
   grid-area: C;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: $shadow;
   display: grid;
-  grid-template-rows: 90% 5% 5%;
+  height: 70vh;
+  grid-template-rows:90% 5% 5%;
 
-  @media (max-width: 992px) {
-    grid-template-rows: 65% 15% 20%;
-  }
 
   span {
     color: $white;
@@ -112,6 +110,7 @@
       display: grid;
       grid-template-columns: 95% 5%;
       border-top: 1px solid $white;
+
 
       .send {
 
@@ -166,33 +165,42 @@
 
 }
 
-.comment_block {
-  display: flex;
-  align-items: center;
-
-  .comment_avatar {
-    cursor: pointer;
-    align-self: start;
-
-    img {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-    }
+.comments {
+  height: 60vh;
+  overflow-y: auto;
+  &::-webkit-scrollbar{
+    width: 0;
   }
 
-  .comment_text {
-    margin-top: 5px;
-    margin-left: 10px;
-    align-self: start;
+  .comment_block {
+    display: flex;
+    align-items: center;
 
-    p {
-      //max-width: 400px;
+    .comment_avatar {
+      cursor: pointer;
+      align-self: start;
+
+      img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+      }
     }
 
-    span {
-      font-size: 20px;
-      font-weight: 600;
+    .comment_text {
+      margin-top: 5px;
+      margin-left: 10px;
+      align-self: start;
+
+      p {
+        //max-width: 400px;
+      }
+
+      span {
+        font-size: 20px;
+        font-weight: 600;
+      }
     }
   }
 }
+

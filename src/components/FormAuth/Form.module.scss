@@ -1,8 +1,10 @@
+@import "src/styles/variables";
+
 .form_block {
   margin: 100px auto;
   padding: 50px;
   width: 50%;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: $shadow;
 
   h1 {
     text-align: center;
