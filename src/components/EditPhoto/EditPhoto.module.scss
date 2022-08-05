@@ -1,0 +1,30 @@
+@import "src/styles/variables";
+
+.edit_photo{
+
+  textarea {
+    margin-bottom: 15px;
+    width: 100%;
+    height: 300px;
+    margin-top: 15px;
+    background-color: transparent;
+    resize: none;
+    overflow: auto;
+    color: $white;
+    font-size: 20px;
+    outline: none;
+    border:  1px solid $white;
+    &::-webkit-scrollbar{
+      width: 0;
+    }
+  }
+
+  .btn{
+    display: flex;
+    justify-content: space-between;
+    .clear{
+      cursor: pointer;
+      color: red;
+    }
+  }
+}

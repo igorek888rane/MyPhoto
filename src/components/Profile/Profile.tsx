@@ -17,10 +17,11 @@ const Profile: FC = () => {
     const {status, photoCards} = useSelector(photoSelector)
     const dispatch = useAppDispatch()
     const params = useParams()
-    const userName = String(params.userName)
+
     useEffect(() => {
+        const userName = String(params.userName)
         dispatch(fetchUser(userName))
-    }, [data,dispatch,userName])
+    }, [data,dispatch])
     useEffect(() => {
         const userId = String(user?._id)
         dispatch(fetchPhotoCards(userId))

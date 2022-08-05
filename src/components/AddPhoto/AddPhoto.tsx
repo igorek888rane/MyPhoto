@@ -38,6 +38,7 @@ const AddPhoto: FC = () => {
 
             <div className={styles.text}>
                <textarea
+                   placeholder={'Описание...'}
                    value={text}
                    onChange={((e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value))}/>
             </div>

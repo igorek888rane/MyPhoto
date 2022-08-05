@@ -94,9 +94,18 @@
 
   .like {
     cursor: pointer;
+    display: grid;
+    grid-template-columns: 30px 30px;
+
+  .count{
+   margin-top: 7px;
+    span {
+      font-size: 17px;
+    }
+  }
+
 
     svg {
-
       path {
         fill: $white
       }
@@ -168,7 +177,8 @@
 .comments {
   height: 60vh;
   overflow-y: auto;
-  &::-webkit-scrollbar{
+
+  &::-webkit-scrollbar {
     width: 0;
   }
 
@@ -192,9 +202,6 @@
       margin-left: 10px;
       align-self: start;
 
-      p {
-        //max-width: 400px;
-      }
 
       span {
         font-size: 20px;

@@ -10,9 +10,9 @@ const MyModal: FC<PropsWithChildren> = ({children}) => {
 
     const dispatch = useAppDispatch()
     const {active} = useSelector(modalSelector)
-
+    // onClick={()=>modalHandler({active:false,body:null},dispatch)}
     return (
-        <div className={active ? `${styles.modal} ${styles.active}` : styles.modal} onClick={()=>modalHandler({active:false,body:null},dispatch)}>
+        <div className={active ? `${styles.modal} ${styles.active}` : styles.modal} >
             <div className={active ? `${styles.modal__content} ${styles.active}` : styles.modal__content}
                  onClick={(event: React.MouseEvent<HTMLDivElement>) => event.stopPropagation()}>
                 <div className={styles.close} onClick={()=>modalHandler({active:false,body:null},dispatch)}>

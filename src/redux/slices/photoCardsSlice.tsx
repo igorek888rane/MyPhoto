@@ -10,6 +10,7 @@ interface photoCardState {
     photoCard: IPhotoCard | null,
     status: string | null,
     statusCreate: string | null,
+    statusUpdate: string | null,
 }
 
 
@@ -18,6 +19,7 @@ const initialState: photoCardState = {
     photoCard: null,
     status: null,
     statusCreate: null,
+    statusUpdate: null,
 }
 
 
@@ -48,6 +50,16 @@ export const fetchOnePhotoCard = createAsyncThunk<IPhotoCard, string>('photoCard
 export const deletePhoto = createAsyncThunk<IPhotoCard, string>('photoCard/deletePhoto', async (id) => {
     const {data} = await axios.delete(`/photo/delete/${id}`)
     return data
+})
+type paramsUpdate = {
+    id: string,
+    params: {
+        description?: string
+        like?: number,
+    }
+}
+export const updatePhoto = createAsyncThunk('photoCard/updatePhoto', async ({id, params}: paramsUpdate) => {
+    await axios.put(`/photo/update-photo/${id}`, params)
 })
 
 export const photoCardSlice = createSlice({
@@ -91,12 +103,21 @@ export const photoCardSlice = createSlice({
             state.statusCreate = Status.loading
         })
         builder.addCase(deletePhoto.fulfilled, (state: photoCardState, action) => {
-            state.photoCards = state.photoCards.filter(photo=>photo._id !==action.payload._id)
+            state.photoCards = state.photoCards.filter(photo => photo._id !== action.payload._id)
             state.photoCard = null
             state.statusCreate = Status.success
         })
         builder.addCase(deletePhoto.rejected, (state: photoCardState) => {
             state.statusCreate = Status.error;
+        })
+        builder.addCase(updatePhoto.pending, (state) => {
+            state.statusUpdate = Status.loading
+        })
+        builder.addCase(updatePhoto.fulfilled, (state: photoCardState) => {
+            state.statusUpdate = Status.success
+        })
+        builder.addCase(updatePhoto.rejected, (state: photoCardState) => {
+            state.statusUpdate = Status.error;
         })
 
 
