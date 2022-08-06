@@ -6,8 +6,8 @@ import styles from './PhotoCardItem.module.scss';
 import {fetchUser, userSelector} from "../../redux/slices/userSlice";
 import {useAppDispatch} from "../../redux/store";
 import {useSelector} from "react-redux";
-import {deletePhoto, fetchOnePhotoCard, photoSelector} from "../../redux/slices/photoCardsSlice";
-import {authSelector} from "../../redux/slices/authSlice";
+import {deletePhoto, fetchOnePhotoCard, photoSelector, updatePhoto} from "../../redux/slices/photoCardsSlice";
+import {authSelector, updateLike, deleteLike} from "../../redux/slices/authSlice";
 import {modalHandler} from "../../utils/modalHandler";
 import EditPhoto from "../EditPhoto/EditPhoto";
 
@@ -23,13 +23,13 @@ const PhotoCardItem: FC = () => {
     const navigate = useNavigate()
     const {user} = useSelector(userSelector)
     const {data} = useSelector(authSelector)
-    const {photoCard,statusUpdate} = useSelector(photoSelector)
+    const {photoCard, statusUpdate} = useSelector(photoSelector)
 
 
     useEffect(() => {
         dispatch(fetchUser(String(params.userName)))
         dispatch(fetchOnePhotoCard(String(params.id)))
-    }, [statusUpdate,dispatch, params])
+    }, [statusUpdate, dispatch, params])
 
     let later = moment(photoCard?.createdAt).fromNow()
     const [open, setOpen] = useState<boolean>(false)
@@ -50,12 +50,24 @@ const PhotoCardItem: FC = () => {
         }
 
     }
+    const addLike = async (count: number, like: boolean) => {
+        const params = {likes: count}
+        const id = String(photoCard?._id)
+        dispatch(updatePhoto({id, params}))
+        like
+            ? dispatch(updateLike(id))
+            : dispatch(deleteLike(id))
+    }
+    const likeFind = data?.likes.find(l => l === photoCard?._id)
+
 
     const removePhoto = () => {
-        window.confirm('Вы действительно хотите удалить фото?')
-        const id = String(params.id)
-        dispatch(deletePhoto(id))
-        navigate(`/profile/${data?.userName}`)
+        if (window.confirm('Вы действительно хотите удалить фото?')) {
+            const id = String(params.id)
+            dispatch(deletePhoto(id))
+            navigate(`/profile/${data?.userName}`)
+        }
+
     }
     return (
         <div className={styles.photoCard}>
@@ -86,7 +98,12 @@ const PhotoCardItem: FC = () => {
                         </svg>
                         {open && <div className={styles.popup}>
                             <ul>
-                                <li onClick={()=>modalHandler({active:true,body:<EditPhoto description={String(photoCard?.description)} id={String(photoCard?._id)}/>},dispatch)}>Редактировать</li>
+                                <li onClick={() => modalHandler({
+                                    active: true,
+                                    body: <EditPhoto description={String(photoCard?.description)}
+                                                     id={String(photoCard?._id)}/>
+                                }, dispatch)}>Редактировать
+                                </li>
                                 <li style={{color: "red"}} onClick={removePhoto}>Удалить</li>
                             </ul>
                         </div>}
@@ -113,18 +130,18 @@ const PhotoCardItem: FC = () => {
                     </div>}
                 </div>
                 <div className={styles.like}>
-
-                  <div className={styles.icon}>
-                      <svg
-                          xmlns="http://www.w3.org/2000/svg">
-                          <g id="info"/>
-                          <g id="icons">
-                              <path d="M22.2,4.1c2.7,2.7,2.4,6.9-0.4,9.5l-8.4,7.9c-0.8,0.7-2.1,0.7-2.9,0l-8.4-7.9c-2.7-2.6-3-6.8-0.4-9.5
+                    <div className={likeFind ? styles.icon_red : styles.icon}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg">
+                            <g id="info"/>
+                            <g id="icons">
+                                <path  onClick={() => likeFind ? addLike(-1, false) : addLike(1, true)} d="M22.2,4.1c2.7,2.7,2.4,6.9-0.4,9.5l-8.4,7.9c-0.8,0.7-2.1,0.7-2.9,0l-8.4-7.9c-2.7-2.6-3-6.8-0.4-9.5
                                   C4.6,1.4,9.2,1.3,12,4C14.8,1.3,19.4,1.4,22.2,4.1z"
-                                    id="like"/>
-                          </g>
-                      </svg>
-                  </div>
+                                      id="like"/>
+                            </g>
+                        </svg>
+                    </div>
                     <div className={styles.count}>
                         <span> {photoCard?.likes}</span>
                     </div>

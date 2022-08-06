@@ -55,7 +55,7 @@ type paramsUpdate = {
     id: string,
     params: {
         description?: string
-        like?: number,
+        likes?: number,
     }
 }
 export const updatePhoto = createAsyncThunk('photoCard/updatePhoto', async ({id, params}: paramsUpdate) => {

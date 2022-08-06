@@ -105,9 +105,20 @@
   }
 
 
-    svg {
-      path {
-        fill: $white
+   .icon{
+
+     svg {
+       path {
+         fill: $white
+       }
+     }
+   }
+    .icon_red{
+
+      svg {
+        path {
+          fill: red;
+        }
       }
     }
   }

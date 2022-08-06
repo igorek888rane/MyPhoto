@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IUser} from "../../@types/types";
 import {RootState} from "../store";
 import axios from "../../utils/axios";
@@ -9,14 +9,14 @@ export enum Status {
     error = 'error',
 }
 
-interface IUserState {
+interface IAuthState {
     data: IUser,
     status: string | null,
-    statusUpdate: string |null
+    statusUpdate: string | null
 }
 
-const initialState: IUserState = {
-    data: {_id: '', email: '', userName: '', token: '', userStatus: '', userAvatar: ''},
+const initialState: IAuthState = {
+    data: {_id: '', email: '', userName: '', token: '', userStatus: '', userAvatar: '', likes: []},
     status: null,
     statusUpdate: '',
 }
@@ -54,28 +54,28 @@ type update = {
 
 }
 export const updateUserInfo = createAsyncThunk<IUser, update>('auth/updateInfo', async ({id, params}) => {
-         const {data} = await axios.put(`user/update/${id}`, params)
-         return data
+    const {data} = await axios.put(`user/update/${id}`, params)
+    return data
 })
 type updateAvatarType = {
     id: string,
-    userAvatar?:FormData | null
+    userAvatar?: FormData | null
 }
 
 
-export const updateAvatar = createAsyncThunk<IUser,updateAvatarType>('auth/updateAvatar', async ({id, userAvatar}) => {
+export const updateAvatar = createAsyncThunk<IUser, updateAvatarType>('auth/updateAvatar', async ({id, userAvatar}) => {
 
-  if(userAvatar){
-      const {data} = await axios.put(`user/update/${id}`, userAvatar,{
-          headers:{
-              'Content-type':'multipart/form-data'
-          }
-      })
-      return data
-  }else {
-      const {data} = await axios.put(`user/update/${id}`, {userAvatar:''})
-      return data
-  }
+    if (userAvatar) {
+        const {data} = await axios.put(`user/update/${id}`, userAvatar, {
+            headers: {
+                'Content-type': 'multipart/form-data'
+            }
+        })
+        return data
+    } else {
+        const {data} = await axios.put(`user/update/${id}`, {userAvatar: ''})
+        return data
+    }
 
 })
 
@@ -84,27 +84,33 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        logout(state) {
+        logout(state:IAuthState) {
             window.localStorage.removeItem('token')
-            state.data = {_id: '', email: '', userName: '', token: '', userStatus: '', userAvatar: '',}
+            state.data = {_id: '', email: '', userName: '', token: '', userStatus: '', userAvatar: '', likes: []}
             state.status = null
+        },
+        updateLike(state:IAuthState,action:PayloadAction<string>){
+        state.data.likes.push(action.payload)
+        },
+        deleteLike(state:IAuthState,action:PayloadAction<string>){
+            state.data.likes = state.data.likes.filter(l=>l!==action.payload)
         }
     },
     extraReducers: (builder) => {
         builder.addCase(authUser.pending, (state) => {
             state.status = Status.loading
         })
-        builder.addCase(authUser.fulfilled, (state: IUserState, action) => {
+        builder.addCase(authUser.fulfilled, (state: IAuthState, action) => {
             state.data = action.payload
             state.status = Status.success
         })
-        builder.addCase(authUser.rejected, (state ) => {
+        builder.addCase(authUser.rejected, (state) => {
             state.status = Status.error;
         })
         builder.addCase(getMe.pending, (state) => {
             state.status = Status.loading
         })
-        builder.addCase(getMe.fulfilled, (state: IUserState, action) => {
+        builder.addCase(getMe.fulfilled, (state: IAuthState, action) => {
             state.data = action.payload
             state.status = Status.success
         })
@@ -114,7 +120,7 @@ export const authSlice = createSlice({
         builder.addCase(updateUserInfo.pending, (state) => {
             state.statusUpdate = Status.loading
         })
-        builder.addCase(updateUserInfo.fulfilled, (state: IUserState, action) => {
+        builder.addCase(updateUserInfo.fulfilled, (state: IAuthState, action) => {
             state.data.userName = action.payload?.userName
             state.data.userStatus = action.payload?.userStatus
             state.statusUpdate = Status.success
@@ -126,14 +132,13 @@ export const authSlice = createSlice({
         builder.addCase(updateAvatar.pending, (state) => {
             state.statusUpdate = Status.loading
         })
-        builder.addCase(updateAvatar.fulfilled, (state: IUserState, action) => {
-            console.log(action.payload)
-             state.data.userAvatar = action.payload?.userAvatar
-            state.statusUpdate = Status.success
+        builder.addCase(updateAvatar.fulfilled, (state: IAuthState, action) => {
 
+            state.data.userAvatar = action.payload?.userAvatar
+            state.statusUpdate = Status.success
         })
         builder.addCase(updateAvatar.rejected, (state) => {
-            state.statusUpdate =  Status.error;
+            state.statusUpdate = Status.error;
         })
 
 
@@ -145,7 +150,7 @@ export const authSelector = (state: RootState) => state.auth
 
 export const isAuth = (state: RootState) => state.auth.data._id
 
-export const {logout} = authSlice.actions
+export const {logout,updateLike,deleteLike} = authSlice.actions
 
 export default authSlice.reducer
 

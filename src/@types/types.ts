@@ -16,6 +16,7 @@ export interface IUser {
     token:string
     userStatus:string,
     userAvatar:string,
+    likes:string[],
 }
 
 export interface FormValues {

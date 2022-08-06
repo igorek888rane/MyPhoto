@@ -9,11 +9,13 @@ import {RootState, useAppDispatch} from "../redux/store";
 import {getMe} from "../redux/slices/authSlice";
 
 
+
 const Layout: FC = () => {
 
     const {body} = useSelector(modalSelector)
     const dispatch = useAppDispatch()
     const {status} = useSelector((state:RootState)=>state.auth)
+
 
     useEffect(() => {
         dispatch(getMe())

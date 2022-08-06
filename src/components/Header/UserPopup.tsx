@@ -33,8 +33,8 @@ const UserPopup: FC = () => {
 
 
     const exit = () => {
-        window.confirm('Вы дейстительно хотите выйти?')
-        dispatch(logout())
+        if(window.confirm('Вы дейстительно хотите выйти?')) dispatch(logout())
+
     }
     return (
         <div ref={popupRef} onClick={() => setOpen(!open)} className={styles.user_popup}>
