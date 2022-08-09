@@ -24,7 +24,7 @@ const Description: FC<HeaderAndDescriptionProps> = ({photoCard,data,user}) => {
     return (
         <div className={styles.description}>
             <div className={styles.comments}>
-                {photoCard?.description && <div className={styles.comment_block}>
+                {photoCard?.description && <div className={styles.description_block}>
                     <div className={styles.comment_avatar}>
                         <Link to={`/profile/${user?.userName}`}>
                             <img

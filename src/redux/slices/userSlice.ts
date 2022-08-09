@@ -10,11 +10,13 @@ export enum Status {
 }
 
 interface IUserState {
+    users:IUser[],
     user: IUser | null,
     status: string | null,
 }
 
 const initialState: IUserState = {
+    users:[],
     user: null,
     status: null
 }
@@ -26,6 +28,18 @@ const initialState: IUserState = {
 export const fetchUser = createAsyncThunk<IUser,string>('user/fetchUser', async (username) => {
 
     const {data} = await axios.get(`/user/user/${username}`)
+    return data
+
+})
+export const fetchUserById = createAsyncThunk<IUser,string>('user/fetchUserById', async (id) => {
+
+    const {data} = await axios.get(`/user/user-by-id/${id}`)
+    return data
+
+})
+export const fetchAllUsers = createAsyncThunk<IUser[]>('user/fetchAllUser', async () => {
+
+    const {data} = await axios.get(`/user/users`)
     return data
 
 })
@@ -53,6 +67,16 @@ export const userSlice = createSlice({
             state.status = Status.success
         })
         builder.addCase(fetchUser.rejected, (state) => {
+            state.status = Status.error;
+        })
+        builder.addCase(fetchAllUsers.pending, (state) => {
+            state.status = Status.loading
+        })
+        builder.addCase(fetchAllUsers.fulfilled, (state: IUserState, action) => {
+            state.users = action.payload
+            state.status = Status.success
+        })
+        builder.addCase(fetchAllUsers.rejected, (state) => {
             state.status = Status.error;
         })
     }

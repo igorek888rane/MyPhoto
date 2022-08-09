@@ -22,7 +22,10 @@ const initialState: photoCardState = {
     statusUpdate: null,
 }
 
-
+export const fetchAllPhotoCards = createAsyncThunk<IPhotoCard[]>('photoCard/allPhotoCards', async () => {
+    const {data} = await axios.get(`/photo/get-all/`)
+    return data
+})
 export const fetchPhotoCards = createAsyncThunk<IPhotoCard[], string>('photoCard/photoCards', async (id) => {
     const {data} = await axios.get(`/photo/get-photo-user/${id}`)
     return data
@@ -76,6 +79,17 @@ export const photoCardSlice = createSlice({
             state.status = Status.success
         })
         builder.addCase(fetchPhotoCards.rejected, (state) => {
+            state.status = Status.error;
+            state.photoCards = []
+        })
+        builder.addCase(fetchAllPhotoCards.pending, (state) => {
+            state.status = Status.loading
+        })
+        builder.addCase(fetchAllPhotoCards.fulfilled, (state: photoCardState, action) => {
+            state.photoCards = action.payload
+            state.status = Status.success
+        })
+        builder.addCase(fetchAllPhotoCards.rejected, (state) => {
             state.status = Status.error;
             state.photoCards = []
         })

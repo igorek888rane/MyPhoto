@@ -1,29 +1,19 @@
-import React, {FC, useEffect, useState} from 'react';
-import axios from "../utils/axios";
-import {IUser} from "../@types/types";
-import {Link} from "react-router-dom";
+import React, {FC, useEffect} from 'react';
+import {useAppDispatch} from "../redux/store";
+import {fetchAllPhotoCards, photoSelector} from "../redux/slices/photoCardsSlice";
 import {useSelector} from "react-redux";
-import {authSelector} from "../redux/slices/authSlice";
+import PhotoCardByHome from "../components/PhotoCardByHome/PhotoCardByHome";
 
 const HomeP: FC = () => {
-    const [users, setUsers] = useState<IUser[]>([])
-    const {data} = useSelector(authSelector)
-    const getUsers = async () => {
-        const {data} = await axios.get('user/users')
-        setUsers(data)
-    }
+    const dispatch = useAppDispatch()
+    const {photoCards} = useSelector(photoSelector)
     useEffect(() => {
-        getUsers()
-    }, [])
+        dispatch(fetchAllPhotoCards())
+    }, [photoCards,dispatch])
 
     return (
         <div className={'container'}>
-            <div>{users.map(u => <Link style={{textDecoration: 'none', fontSize: '24px', color: '#FFFF'}} key={u._id}
-                                       to={`/profile/${u.userName}`}>{u.userName},</Link>)}</div>
-            <div>
-                {data.subscriptions.map(u => <Link style={{textDecoration: 'none', fontSize: '24px', color: '#FFFF'}} key={u}
-                                                   to={`/profile/${u}`}>{u},</Link>)}
-            </div>
+            {photoCards.map(photo=><PhotoCardByHome photoCard={photo}/>)}
         </div>
     );
 };
