@@ -21,12 +21,11 @@ const Profile: FC = () => {
     useEffect(() => {
         const userName = String(params.userName)
         dispatch(fetchUser(userName))
-    }, [data,dispatch])
+    }, [data.userName, data.userAvatar, data.userStatus, dispatch])
     useEffect(() => {
         const userId = String(user?._id)
         dispatch(fetchPhotoCards(userId))
-
-    }, [user, data,dispatch])
+    }, [user?.photoCards, data.photoCards, dispatch])
 
     return (
         <>
@@ -35,7 +34,8 @@ const Profile: FC = () => {
                 ? <div className={styles.photo_cards}>
                     {status === 'loading' ?
                         [...new Array(3)].map((_, i) => <PhotoCardSkeleton key={i}/>)
-                        : photoCards.map(photo => <Link  key={photo._id} to={`${photo._id}`}><PhotoCard photo={photo}/></Link>)}
+                        : photoCards.map(photo => <Link key={photo._id} to={`${photo._id}`}><PhotoCard
+                            photo={photo}/></Link>)}
                 </div>
                 : <div className={styles.not_found_block}>
                     <h1>Нет Публикаций</h1>

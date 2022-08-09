@@ -16,7 +16,18 @@ interface IAuthState {
 }
 
 const initialState: IAuthState = {
-    data: {_id: '', email: '', userName: '', token: '', userStatus: '', userAvatar: '', likes: []},
+    data: {
+        _id: '',
+        email: '',
+        userName: '',
+        token: '',
+        userStatus: '',
+        userAvatar: '',
+        photoCards:[],
+        likes: [],
+        subscriptions: [],
+        subscribers: []
+    },
     status: null,
     statusUpdate: '',
 }
@@ -79,21 +90,38 @@ export const updateAvatar = createAsyncThunk<IUser, updateAvatarType>('auth/upda
 
 })
 
+export const subscribeOnSubscribe = createAsyncThunk<string, Record<string, string>>('auth/subscribeOnSubscribe',
+    async ({id, req}) => {
+        console.log(id)
+        const {data} = await axios.put(`user/${req}/${id}`)
+        return data
+    })
 
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        logout(state:IAuthState) {
+        logout(state: IAuthState) {
             window.localStorage.removeItem('token')
-            state.data = {_id: '', email: '', userName: '', token: '', userStatus: '', userAvatar: '', likes: []}
+            state.data = {
+                _id: '',
+                email: '',
+                userName: '',
+                token: '',
+                userStatus: '',
+                userAvatar: '',
+                photoCards:[],
+                likes: [],
+                subscriptions: [],
+                subscribers: []
+            }
             state.status = null
         },
-        updateLike(state:IAuthState,action:PayloadAction<string>){
-        state.data.likes.push(action.payload)
+        updateLike(state: IAuthState, action: PayloadAction<string>) {
+            state.data.likes.push(action.payload)
         },
-        deleteLike(state:IAuthState,action:PayloadAction<string>){
-            state.data.likes = state.data.likes.filter(l=>l!==action.payload)
+        deleteLike(state: IAuthState, action: PayloadAction<string>) {
+            state.data.likes = state.data.likes.filter(l => l !== action.payload)
         }
     },
     extraReducers: (builder) => {
@@ -133,11 +161,26 @@ export const authSlice = createSlice({
             state.statusUpdate = Status.loading
         })
         builder.addCase(updateAvatar.fulfilled, (state: IAuthState, action) => {
-
             state.data.userAvatar = action.payload?.userAvatar
             state.statusUpdate = Status.success
         })
         builder.addCase(updateAvatar.rejected, (state) => {
+            state.statusUpdate = Status.error;
+        })
+        builder.addCase(subscribeOnSubscribe.pending, (state) => {
+            state.statusUpdate = Status.loading
+        })
+        builder.addCase(subscribeOnSubscribe.fulfilled, (state: IAuthState, action) => {
+            const sub = state.data.subscriptions.find(sub => sub === action.payload)
+            sub
+                ? state.data.subscriptions = state.data.subscriptions.filter(sub => sub !== action.payload)
+                : state.data.subscriptions.push(action.payload)
+
+
+            state.statusUpdate = Status.success
+
+        })
+        builder.addCase(subscribeOnSubscribe.rejected, (state) => {
             state.statusUpdate = Status.error;
         })
 
@@ -150,7 +193,7 @@ export const authSelector = (state: RootState) => state.auth
 
 export const isAuth = (state: RootState) => state.auth.data._id
 
-export const {logout,updateLike,deleteLike} = authSlice.actions
+export const {logout, updateLike, deleteLike} = authSlice.actions
 
 export default authSlice.reducer
 

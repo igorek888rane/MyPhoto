@@ -7,7 +7,7 @@ import EditProfile from "../EditProfile/EditProfile";
 import {useSelector} from "react-redux";
 import {modalHandler} from "../../utils/modalHandler";
 import {userSelector} from "../../redux/slices/userSlice";
-import {authSelector} from "../../redux/slices/authSlice";
+import {authSelector, subscribeOnSubscribe} from "../../redux/slices/authSlice";
 import AddPhoto from "../AddPhoto/AddPhoto";
 
 
@@ -15,7 +15,13 @@ const ProfileHeader = () => {
     const dispatch = useAppDispatch()
     const {user} = useSelector(userSelector)
     const {data, statusUpdate} = useSelector(authSelector)
-    let subcribe = data.subscriptions.find(sub => sub === user?._id)
+    let sub = data.subscriptions.find(sub => sub === user?._id)
+
+    const subOnSub = (req: string) => {
+        dispatch(subscribeOnSubscribe({id: String(user?._id), req}))
+    }
+
+
     return (
         <div className={styles.header}>
             <div className={styles.info_block}>
@@ -56,12 +62,12 @@ const ProfileHeader = () => {
                 ? <div className={styles.btn} onClick={() => modalHandler({active: true, body: <AddPhoto/>}, dispatch)}>
                     <MyButton>+</MyButton>
                 </div>
-                : subcribe
+                : sub
                     ? <div className={styles.btn}>
-                        <MyButton>Отписаться</MyButton>
-                     </div>
+                        <MyButton onClick={() => subOnSub('unsubscribe')}>Отписаться</MyButton>
+                    </div>
                     : <div className={styles.btn}>
-                        <MyButton>Подписаться</MyButton>
+                        <MyButton onClick={() => subOnSub('subscribe')}>Подписаться</MyButton>
                     </div>}
 
         </div>
