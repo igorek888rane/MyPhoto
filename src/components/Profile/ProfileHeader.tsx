@@ -14,12 +14,16 @@ import AddPhoto from "../AddPhoto/AddPhoto";
 const ProfileHeader = () => {
     const dispatch = useAppDispatch()
     const {user} = useSelector(userSelector)
-    const {data,statusUpdate} = useSelector(authSelector)
+    const {data, statusUpdate} = useSelector(authSelector)
+    let subcribe = data.subscriptions.find(sub => sub === user?._id)
     return (
         <div className={styles.header}>
             <div className={styles.info_block}>
                 <div className={styles.avatar}
-                     onClick={() =>data?._id === user?._id && modalHandler({active: true, body: <EditAvatar/>}, dispatch)}>
+                     onClick={() => data?._id === user?._id && modalHandler({
+                         active: true,
+                         body: <EditAvatar/>
+                     }, dispatch)}>
 
                     <img
                         src={user?.userAvatar ?
@@ -48,12 +52,17 @@ const ProfileHeader = () => {
                     </div>}
                 </div>
             </div>
-            {data?._id === user?._id &&
-                <div className={styles.btn} onClick={() => modalHandler({active: true, body: <AddPhoto/>}, dispatch)}>
-                    <MyButton>
-                        <span>+</span>
-                    </MyButton>
-                </div>}
+            {data?._id === user?._id
+                ? <div className={styles.btn} onClick={() => modalHandler({active: true, body: <AddPhoto/>}, dispatch)}>
+                    <MyButton>+</MyButton>
+                </div>
+                : subcribe
+                    ? <div className={styles.btn}>
+                        <MyButton>Отписаться</MyButton>
+                     </div>
+                    : <div className={styles.btn}>
+                        <MyButton>Подписаться</MyButton>
+                    </div>}
 
         </div>
     );

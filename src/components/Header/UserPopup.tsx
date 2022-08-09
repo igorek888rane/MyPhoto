@@ -5,10 +5,9 @@ import {useSelector} from "react-redux";
 import {logout, authSelector} from "../../redux/slices/authSlice";
 import {useAppDispatch} from "../../redux/store";
 import {fetchUser} from "../../redux/slices/userSlice";
+import {closeClick, closeEsc} from "../../utils/popupClose";
 
-type BodyClick = MouseEvent & {
-    path: Node[]
-}
+
 
 const UserPopup: FC = () => {
     const [open, setOpen] = useState<boolean>(false)
@@ -16,19 +15,10 @@ const UserPopup: FC = () => {
     const {data} = useSelector(authSelector)
     const dispatch = useAppDispatch()
     document.body.onclick = (e: MouseEvent) => {
-        const _e = e as BodyClick
-        if (popupRef.current && !_e.path.includes(popupRef.current)) {
-            setOpen(false)
-            document.body.onclick = null
-        }
-
+        closeClick({e, setOpen, popupRef})
     }
     document.onkeydown = (e: KeyboardEvent) => {
-        if (e.code === 'Escape') {
-            setOpen(false)
-            document.onkeydown = null
-        }
-
+        closeEsc({e, setOpen})
     }
 
 
