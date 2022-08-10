@@ -1,6 +1,7 @@
 @import "src/styles/variables";
 
 .photoCard {
+
   margin: 20px auto;
   padding: 0 15px;
   max-width: 50%;
@@ -42,9 +43,6 @@
   }
 
   .info {
-    display: flex;
-    flex-direction: column;
-
     span {
       font-size: 20px;
       font-weight: 600;
@@ -58,13 +56,41 @@
 .description {
   box-shadow: $shadow;
   display: grid;
-  grid-template-columns: 50px auto;
+  grid-template-rows: 30px  auto;
   gap: 5px;
+  .like_comment{
+    display: grid;
+    grid-template-columns: 50px  30px;
+    justify-content: center;
+  }
+
+  .icon {
+
+    svg {
+      width: 25px;
+      path {
+        fill: $white
+      }
+    }
+  }
+  .count {
+    margin-top: 7px;
+
+    span {
+      font-size: 17px;
+    }
+  }
 
   span {
     color: $white;
     font-size: 24px;
     font-weight: 600;
+  }
+  .comment{
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 32px 30px;
+
   }
 
   .like {
@@ -72,23 +98,6 @@
     display: grid;
     grid-template-columns: 32px 30px;
 
-    .count {
-      margin-top: 7px;
-
-      span {
-        font-size: 17px;
-      }
-    }
-
-
-    .icon {
-
-      svg {
-        path {
-          fill: $white
-        }
-      }
-    }
 
     .icon_red {
 
@@ -101,7 +110,7 @@
   }
 
   .description_block {
-    padding-bottom: 10px;
+    padding: 0  10px 15px;
 
     .more {
       font-size: 17px;

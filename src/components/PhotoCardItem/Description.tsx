@@ -2,30 +2,22 @@ import React, {FC} from 'react';
 import styles from "./PhotoCardItem.module.scss";
 import {Link} from "react-router-dom";
 import {HeaderAndDescriptionProps} from "../../@types/PropsType";
-import {updatePhoto} from "../../redux/slices/photoCardsSlice";
-import {deleteLike, updateLike} from "../../redux/slices/authSlice";
 import {useAppDispatch} from "../../redux/store";
+import {addLike, likeFinder} from '../../utils/like';
 
 const Description: FC<HeaderAndDescriptionProps> = ({photoCard,data,user}) => {
 
 
     const dispatch = useAppDispatch()
 
-    const addLike = async (count: number, like: boolean) => {
-        const params = {likes: count}
-        const id = String(photoCard?._id)
-        dispatch(updatePhoto({id, params}))
-        like
-            ? dispatch(updateLike(id))
-            : dispatch(deleteLike(id))
-    }
-    const likeFind = data?.likes.find(l => l === photoCard?._id)
+
+    const likeFind = likeFinder(data, photoCard)
 
     return (
         <div className={styles.description}>
             <div className={styles.comments}>
                 {photoCard?.description && <div className={styles.description_block}>
-                    <div className={styles.comment_avatar}>
+                    <div className={styles.description_avatar}>
                         <Link to={`/profile/${user?.userName}`}>
                             <img
                                 src={user?.userAvatar ?
@@ -33,7 +25,7 @@ const Description: FC<HeaderAndDescriptionProps> = ({photoCard,data,user}) => {
                                     : 'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png'}
                                 alt=""/></Link>
                     </div>
-                    <div className={styles.comment_text}>
+                    <div className={styles.description_text}>
                         <p><span>{user?.userName}</span>:{photoCard?.description}</p>
                     </div>
                 </div>}
@@ -45,7 +37,7 @@ const Description: FC<HeaderAndDescriptionProps> = ({photoCard,data,user}) => {
                         xmlns="http://www.w3.org/2000/svg">
                         <g id="info"/>
                         <g id="icons">
-                            <path  onClick={() => likeFind ? addLike(-1, false) : addLike(1, true)}
+                            <path  onClick={() => likeFind ? addLike(-1, false,photoCard,dispatch) : addLike(1, true,photoCard,dispatch)}
                                    d="M22.2,4.1c2.7,2.7,2.4,6.9-0.4,9.5l-8.4,7.9c-0.8,0.7-2.1,0.7-2.9,0l-8.4-7.9c-2.7-2.6-3-6.8-0.4-9.5
                                   C4.6,1.4,9.2,1.3,12,4C14.8,1.3,19.4,1.4,22.2,4.1z"
                                    id="like"/>
