@@ -7,8 +7,10 @@ import axios from "../../utils/axios";
 
 interface photoCardState {
     photoCards: IPhotoCard[],
+    photoCardsSubscribe: IPhotoCard[],
     photoCard: IPhotoCard | null,
     status: string | null,
+    statusSubscribe: string | null,
     statusCreate: string | null,
     statusUpdate: string | null,
 }
@@ -16,14 +18,20 @@ interface photoCardState {
 
 const initialState: photoCardState = {
     photoCards: [],
+    photoCardsSubscribe:[],
     photoCard: null,
     status: null,
+    statusSubscribe:null,
     statusCreate: null,
     statusUpdate: null,
 }
 
 export const fetchAllPhotoCards = createAsyncThunk<IPhotoCard[]>('photoCard/allPhotoCards', async () => {
     const {data} = await axios.get(`/photo/get-all/`)
+    return data
+})
+export const fetchPhotoCardsSubscribe = createAsyncThunk<IPhotoCard[]>('photoCard/photoCardsSubscribe', async () => {
+    const {data} = await axios.get(`/photo/get-photo-subscribe`)
     return data
 })
 export const fetchPhotoCards = createAsyncThunk<IPhotoCard[], string>('photoCard/photoCards', async (id) => {
@@ -92,6 +100,17 @@ export const photoCardSlice = createSlice({
         builder.addCase(fetchAllPhotoCards.rejected, (state) => {
             state.status = Status.error;
             state.photoCards = []
+        })
+        builder.addCase(fetchPhotoCardsSubscribe.pending, (state) => {
+            state.statusSubscribe = Status.loading
+        })
+        builder.addCase(fetchPhotoCardsSubscribe.fulfilled, (state: photoCardState, action) => {
+            state.photoCardsSubscribe = action.payload
+            state.statusSubscribe = Status.success
+        })
+        builder.addCase(fetchPhotoCardsSubscribe.rejected, (state) => {
+            state.statusSubscribe = Status.error;
+            state.photoCardsSubscribe = []
         })
         builder.addCase(createPhotoCard.pending, (state) => {
             state.statusCreate = Status.loading

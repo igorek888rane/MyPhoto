@@ -32,6 +32,7 @@
       width: 75px;
       height: 75px;
       border-radius: 50%;
+      object-fit: cover;
     }
   }
 
@@ -189,6 +190,7 @@
   height: 60vh;
   overflow-y: auto;
 
+
   &::-webkit-scrollbar {
     width: 0;
   }
@@ -205,6 +207,7 @@
         width: 35px;
         height: 35px;
         border-radius: 50%;
+        object-fit: cover;
       }
     }
 
@@ -222,3 +225,8 @@
   }
 }
 
+.back{
+  span{
+    font-size: 26px;
+  }
+}

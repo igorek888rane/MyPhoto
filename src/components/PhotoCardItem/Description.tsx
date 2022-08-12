@@ -5,7 +5,7 @@ import {HeaderAndDescriptionProps} from "../../@types/PropsType";
 import {useAppDispatch} from "../../redux/store";
 import {addLike, likeFinder} from '../../utils/like';
 
-const Description: FC<HeaderAndDescriptionProps> = ({photoCard,data,user}) => {
+const Description: FC<HeaderAndDescriptionProps> = ({photoCard,data,user,back,setBack}) => {
 
 
     const dispatch = useAppDispatch()
@@ -16,6 +16,7 @@ const Description: FC<HeaderAndDescriptionProps> = ({photoCard,data,user}) => {
     return (
         <div className={styles.description}>
             <div className={styles.comments}>
+
                 {photoCard?.description && <div className={styles.description_block}>
                     <div className={styles.description_avatar}>
                         <Link to={`/profile/${user?.userName}`}>
@@ -30,7 +31,10 @@ const Description: FC<HeaderAndDescriptionProps> = ({photoCard,data,user}) => {
                     </div>
                 </div>}
             </div>
-            <div className={styles.like}>
+
+            {back?<div onClick={()=>setBack(!back)} className={styles.back}><span>{'<-'}</span></div>
+                :<div className={styles.like}>
+
                 <div className={likeFind ? styles.icon_red : styles.icon}
                 >
                     <svg
@@ -47,7 +51,7 @@ const Description: FC<HeaderAndDescriptionProps> = ({photoCard,data,user}) => {
                 <div className={styles.count}>
                     <span> {photoCard?.likes}</span>
                 </div>
-            </div>
+            </div>}
             <div className={styles.block_bottom}>
 
                 <div className={styles.text}>
