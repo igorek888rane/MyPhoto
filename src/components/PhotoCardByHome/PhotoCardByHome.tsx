@@ -1,4 +1,6 @@
-import React, {FC, RefObject, useEffect, useRef, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
+import Header from "./Header";
+import Comments from "../PhotoCardItem/Comments";
 import {Link} from "react-router-dom";
 import {IPhotoCard} from "../../@types/types";
 import styles from "./PhotoCardByHome.module.scss";
@@ -7,7 +9,6 @@ import {fetchAllUsers, userSelector} from "../../redux/slices/userSlice";
 import {useSelector} from "react-redux";
 import {authSelector} from "../../redux/slices/authSlice";
 import {addLike, likeFinder} from '../../utils/like';
-import Description from "../PhotoCardItem/Description";
 
 
 type PhotoCardByHomeProps = {
@@ -21,41 +22,29 @@ const PhotoCardByHome: FC<PhotoCardByHomeProps> = ({photoCard}) => {
     const headerRef = useRef<HTMLDivElement>(null)
     const dispatch = useAppDispatch()
     const {users} = useSelector(userSelector)
-    let user = users.find(u=> u._id === photoCard.user)
+    let user = users.find(u => u._id === photoCard.user)
     useEffect(() => {
         dispatch(fetchAllUsers())
     }, [dispatch])
 
+
     const {data} = useSelector(authSelector)
     const likeFind = likeFinder(data, photoCard)
 
-    const collapse = (ref: RefObject<HTMLDivElement>, b: boolean) => {
-        const to = Number(ref?.current?.scrollHeight)
-        window.scrollTo(0, to)
-        setMore(b)
-    }
+    // const collapse = (ref: RefObject<HTMLDivElement>, b: boolean) => {
+    //     const to = Number(ref?.current?.scrollHeight)
+    //     console.log(to);
+    //     window.scrollTo(0, to)
+    //     setMore(b)
+    // }
 
     return (
         <div className={styles.photoCard}>
             {openComment
-                ? <Description photoCard={photoCard} data={data} user={user} back={openComment} setBack={setOpenComment}/>
+                ?
+                <Comments photoCard={photoCard} data={data} user={user} back={openComment} setBack={setOpenComment}/>
                 : <>
-                    <div className={styles.header}>
-                        <Link to={`/profile/${user?.userName}`}>
-                            <div className={styles.avatar}>
-                                <img
-                                    src={user?.userAvatar ?
-                                        `${process.env.REACT_APP_SERVER_API}/uploads/userAvatar/${user?.userAvatar}`
-                                        : 'https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png'}
-                                    alt=""/>
-                            </div>
-                        </Link>
-                        <div className={styles.info}>
-                            <div><span>{user?.userName}</span></div>
-                        </div>
-
-                    </div>
-
+                    <Header user={user}/>
                     <Link to={`/profile/${user?.userName}/${photoCard._id}`}>
                         <div className={styles.photo}>
                             <img src={`${process.env.REACT_APP_SERVER_API}/uploads/PhotoCard/${photoCard?.photoUrl}`}
@@ -104,14 +93,14 @@ const PhotoCardByHome: FC<PhotoCardByHomeProps> = ({photoCard}) => {
 
                             </div>
                         </div>
-                        {photoCard.description && <div className={styles.description_block}>
+                        {photoCard.description && <div ref={headerRef} className={styles.description_block}>
                             <div className={styles.description_text}>
                                 {photoCard?.description.length > 50
                                     ? <p>
                                         <span>{user?.userName}</span>: {more ? photoCard.description : photoCard.description.substring(0, 150)}
                                         {more ?
                                             <span className={styles.more}
-                                                  onClick={() => collapse(headerRef, false)}>  ...свернуть</span> :
+                                                  onClick={() => setMore(false)}>  ...свернуть</span> :
                                             <span className={styles.more} onClick={() => setMore(true)}>... еще</span>}
                                     </p>
                                     : <p>

@@ -3,6 +3,7 @@ import auth from './slices/authSlice'
 import user from './slices/userSlice'
 import modal from './slices/modalSlice'
 import photoCards from './slices/photoCardsSlice'
+import comment from './slices/commentSlice'
 import {useDispatch} from "react-redux";
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
         auth,
         modal,
         photoCards,
+        comment,
     },
     middleware:(getDefaultMiddleware) =>
         getDefaultMiddleware({

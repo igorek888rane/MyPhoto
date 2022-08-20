@@ -7,11 +7,11 @@ import EditPhoto from "../EditPhoto/EditPhoto";
 import {deletePhoto} from "../../redux/slices/photoCardsSlice";
 import moment from "moment";
 import {useAppDispatch} from "../../redux/store";
-import {HeaderAndDescriptionProps} from "../../@types/PropsType";
+import {HeaderAndCommentsProps} from "../../@types/PropsType";
 import {closeClick, closeEsc} from "../../utils/popupClose";
 
 
-const Header: FC<HeaderAndDescriptionProps> = ({photoCard, data, user}) => {
+const Header: FC<HeaderAndCommentsProps> = ({photoCard, data, user}) => {
 
     const params = useParams()
     const dispatch = useAppDispatch()

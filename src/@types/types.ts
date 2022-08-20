@@ -16,10 +16,16 @@ export interface IUser {
     token: string
     userStatus: string,
     userAvatar: string,
-    photoCards:string[],
+    photoCards: string[],
     likes: string[],
     subscriptions: string[],
     subscribers: string[],
+}
+
+export interface IComment {
+    user: string,
+    photo: string,
+    comment: string,
 }
 
 export interface FormValues {

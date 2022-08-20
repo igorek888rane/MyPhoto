@@ -7,7 +7,7 @@ import {useSelector} from "react-redux";
 import {fetchOnePhotoCard, photoSelector} from "../../redux/slices/photoCardsSlice";
 import {authSelector} from "../../redux/slices/authSlice";
 import Header from "./Header";
-import Description from "./Description";
+import Comments from "./Comments";
 import Photo from "./Photo";
 
 
@@ -30,7 +30,7 @@ const PhotoCardItem: FC = () => {
         <div className={styles.photoCard}>
             <Header photoCard={photoCard} data={data} user={user}/>
             <Photo photoCard={photoCard}/>
-            <Description photoCard={photoCard} data={data} user={user}/>
+            <Comments photoCard={photoCard} data={data} user={user}/>
         </div>
     );
 };
