@@ -4,18 +4,20 @@ import {fetchAllPhotoCards, fetchPhotoCardsSubscribe, photoSelector} from "../re
 import {useSelector} from "react-redux";
 import PhotoCardByHome from "../components/PhotoCardByHome/PhotoCardByHome";
 import {authSelector} from "../redux/slices/authSlice";
+import {commentSelector} from "../redux/slices/commentSlice";
 
 const HomeP: FC = () => {
     const dispatch = useAppDispatch()
     const {photoCards} = useSelector(photoSelector)
     const {photoCardsSubscribe} = useSelector(photoSelector)
     const {data} = useSelector(authSelector)
+    const {comments} = useSelector(commentSelector)
     useEffect(()=>{
        dispatch(fetchPhotoCardsSubscribe())
-    },[data,dispatch])
+    },[data,comments,dispatch])
     useEffect(() => {
         dispatch(fetchAllPhotoCards())
-    }, [data,dispatch])
+    }, [data,comments,dispatch])
 
     return (
         <div className={'container'}>

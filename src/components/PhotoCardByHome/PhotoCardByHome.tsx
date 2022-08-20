@@ -93,7 +93,7 @@ const PhotoCardByHome: FC<PhotoCardByHomeProps> = ({photoCard}) => {
 
                             </div>
                         </div>
-                        {photoCard.description && <div ref={headerRef} className={styles.description_block}>
+                        {photoCard.description && <div className={styles.description_block}>
                             <div className={styles.description_text}>
                                 {photoCard?.description.length > 50
                                     ? <p>

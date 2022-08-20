@@ -6,6 +6,7 @@ import {useAppDispatch} from "../../redux/store";
 import {addLike, likeFinder} from '../../utils/like';
 import {useSelector} from "react-redux";
 import {commentSelector, fetchComments, createComment} from "../../redux/slices/commentSlice";
+import Comment from "./Comment";
 
 const Comments: FC<HeaderAndCommentsProps> = ({photoCard, data, user, back, setBack}) => {
     const dispatch = useAppDispatch()
@@ -41,7 +42,7 @@ const Comments: FC<HeaderAndCommentsProps> = ({photoCard, data, user, back, setB
                     </div>
                 </div>}
                 {
-                    commentsByPhoto.length > 0 && commentsByPhoto.map(com => <div>{com.comment}t</div>)
+                    commentsByPhoto.length > 0 && commentsByPhoto.map(com => <Comment key={com?._id} comment={com}/>)
                 }
             </div>
 

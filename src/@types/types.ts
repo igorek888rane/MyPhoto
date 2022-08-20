@@ -23,6 +23,7 @@ export interface IUser {
 }
 
 export interface IComment {
+    _id: string,
     user: string,
     photo: string,
     comment: string,
